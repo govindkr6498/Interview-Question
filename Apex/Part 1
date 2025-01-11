@@ -1,0 +1,112 @@
+1. Best Practice and consideration for trigger?
+Ans : a. One trigger per Object
+	    b. Avoid SOQL Query inside for loop.
+  	  c. Avoid DML inside for loop.
+  	  d. Avoid Hardcoding Ids.
+  	  e. Bulkify your code.
+  	  f. Use where cluase in SOQL Query.
+  	  g. Avoid nested for loop.
+	 	 
+2. How many records can be inserted in DML?
+Ans : A list or map can not process more than 10000 DML rows in a single transaction.
+==> We can't use more than 150 DML Statements in a single transaction.
+
+3. How many records can be processed in trigger in salesforce.
+Ans: Triggers are called with up to 200 records at a time.
+==> A transaction ca include bulk DML on up to 10000 records, So
+    Your trigger could be called 50 times.	
+	
+4. How to avoid recursion in Trigger.
+Ans : 
+	a. Use static Boolean Variable ==> this is good for 200 records.
+	b. Use Static set
+	c. Use Static Map
+
+5. What are governor Limits? Gice three Example.
+Ans:
+	Salesforce governor limits, they are set of rules and regulation that
+	restrict monopolistic use of the resource for org that utilize salesforce servers.
+	
+	
+	
+6. What are the difference types of Exception in salesforce?
+Ans:
+	1. DMLException : 
+		a. Any problem with DML
+		b. Required Field Missing
+		c. Mixed DML Operation Error.
+		d. Invalid date.
+		
+	2. NullPointerException:
+		a. A line of code that is trying to use an object that has not been 
+		   instantaited, or an object's attributes that has not began initialized.
+		
+	3. QueryException :
+		a. Any problem with Soql queries, such as assigning a query that return
+     	   no records or more than one record to a singleton sObject variable.
+		
+	4. Limit Exception:
+		a. In salesforce we can encounter the salesforce Governor Limits. 
+		   A governor limit has been exceedeed.This exception can't be caught. 
+		   This is a hard limit, means you can't increased it by contacting salesforce support.
+		   
+		   
+		  
+7. What are the types of Collection in salesforce and when to use which type of collection?
+Ans:
+	1. List ==> A List is an ordered collection of elements.
+			==> List are beneficial when preserving the data order or accessing 
+				elements based on their position is necessary.
+				
+	2. Set ==> Sets are unordered collection that store only unique elements.
+		   ==> Sets are useful whenyou need to ensure that your data is distinct 
+			   and when you don't need to maintain order.
+			   
+	3. Map ==> A Map id a collection of key-value pairs.It's like a dictionary -each word(key) has a corresponding definition(value)
+		   ==> When you need to seek values based on their associated keys, maps come in handy.
+		   
+		   
+8. What is a wrapper class in salesforce?
+Ans: 	
+	==> As the name suggests a wrapper class in salesforce allows 
+	   developer to combine different data types and use them for specific purposes.
+	   
+	  
+9. What is SOQL and SOSL. What are the differences between SOQL and SOSL?
+Ans:
+	1. SOQL(Salesforce Object Query Language)
+		==> SOQL is a Salesforce Object Query Language, retrieves the records from the database by using SELECT keyword.
+		==> SOQL is sued if we knowin which object the data type is present.
+		==> In SOQL we can query data from single object and as well as multiple objects that are related to each other.
+		==> We can query on all fields of any database.
+		==> We can use SOQL in Triggers and class.
+		==> We can perform DML Operation on query result.
+	
+	2. SOSL(Salesforce Object Search Language)
+		==> SOSL is a Salesforce Object Search Language, retrieve the records from the database by using the FIND keyword.
+		==> SOSL is used if we don't know in which object the data is present.
+		==> We can retrieve multiple objects and fields values effeciently when the objects may or may not be related to each other.
+		==> We can use in class but not in trigger.
+		==> We cannot perform DML operation on search result.
+		
+	
+10. What is order of Execution in salesforce?
+Ans:
+	==> A set of rules that describe the Path, a records takes through all 
+	    automatic and the events that happen from SAVE to COMIIT.
+	
+	1. Load The original Record from Database/intialize for UPSERT.
+	2. older Values are overwritten
+	3. System Validation Rules.
+	4. APEX Before Trigger.
+	5. Custome Validation Rules.
+	6. Record Saved to database not committed.
+	7. APEX after trigger.
+	8. Assignment Rules.
+	9. Auto Response Rules.
+	10. Workflow Rule.
+	11. Escalation Rules.
+	12. Rollup Summary formule Updates.
+	13. Execute Criteria Based Sharing
+	14. Database committed.
+	15. Post Comit Logic.
