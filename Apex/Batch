@@ -1,0 +1,258 @@
+#. Batch Programming / Batch Apex:-
+===================================
+==> Max. of 50 Million Records --> By dividing the record to the various batches.
+	
+	--> To perform the Long Running Operations.
+	--> Always Running outside of the Organization, by placing inside the Apex Queue.
+	
+	Step 1: Create a Batch Class with Global Access Specifier, and Implements the class
+			with an interface "Database.Batchable".
+			
+			Syntax:
+			
+			      Global Class <ClassName> implements Database.batchable<SObject>
+				  {
+					// Write the Logic
+				  }
+	
+	
+	Step 2: Write the interface Methods inside the Class and Write the bussiness Logic..
+		
+		Syntax:
+		
+		Global class <ClassName> implements Database.Batchable<SObject>
+		{
+			Global Database.queryLocator start(Database.batchableContext <refName>)
+			{
+				// Write the Bussniess Logic to get the required record from the Object and 
+				return the Starting memory Address
+			}
+			
+			Global void Execute(Database.batchableContext <RefName> List<SObject> <parName>)
+			{
+				// Write the Bussiness Logic
+			}
+			
+			Global void finish(Database.BatchableContext <refName>)
+			{
+				// write the Post-Execute Logic
+			}
+		}
+		
+		
+Step 3: Invoke the Batch Class.
+	
+		1. Create the Batch Class Object.
+		2. Execute the Btach Class by using "Database.ExecuteBatch()" method
+		
+		Syntax:
+			
+			<BatchClassName> <BatchClassObjectName> = New <BatchClassName>();
+			Id jobId = Database.ExecuteBatch(<BatchClassObjectName>, <BatchSize>);
+
+Step 4: Track the status of the Batch Class by using the below ways.
+	
+		
+================================================================================================
+#. Usecase:-
+=============
+==> Create a Batch Job, to update All the Account Record  by assigning the values
+	a below, by dividing the records to the various batches of size "5".
+	
+		Account: Rating = 'Hot'
+		Account: Industry = "manufacturing"
+		Account: AnnualRevenue = 750000
+		Account: Active = 'Yes'
+	
+	COntroller Code:
+	----------------
+	
+		Global class UpdateAccountRecordBatchJob implements Database.Batchable<SObject>{
+			Global Database.QueryLocator Start(Database.BatchableContext bc){
+				String accountQuery = 'Select id,name,annualRevenue,Industry,Active__c,rating from Account';
+				return Database.getQueryLocator(accountQuery);
+			}
+			Global void execute(Database.batchableContext bc, List<SObject> recordToProcess){
+				if(!recordToProcess.isEmpty()){
+					List<Account> updateAccRecordList = New List<Account>();
+					for(SObject sObj : recordToProcess){
+						Account accRecord = (Account) sObj;
+						accRecord.Rating = 'Hot';
+						accRecord.Industry = 'Manufacturing';
+						accRecord.AnnualRevenue = 750000;
+						accRecord.Active__c = 'Yes';
+						updateAccRecordList.add(accRecord);
+					}
+					if(!updateAccRecordList.isEmpty()){
+						update updateAccRecordList;
+					}
+				}
+			}
+			Global void finish(Database.batchableContext bc){
+				System.debug('Account Record update Successfully!...');
+			}
+		}
+	
+	Execute Process:
+	----------------
+	
+	UpdateAccountRecordBatchJob objName = New UpdateAccountRecordBatchJob();
+	Id jobId = Database.executeBatch(objName,5);
+	
+	
+================================================================================================================================
+
+#. State Management:
+====================
+
+Usecase:
+========
+		Create a Batch Job, to calculate the Total AnnualRevenue of all Lead Records
+		exist inside the Organization, by dividing the records to the various batches
+		of size 10.
+		
+		Batch Class Name:
+		-----------------
+		
+			Global class CalculateLeadsTotalRevenueBatch implements Database.Batchable<SObject>, Database.Stateful{
+				Global Decimal totalAnualRevenue = 0.0;
+				Global Database.QueryLocator start(Database.BatchableContext bContext){
+					String leadQuery = 'Select id,firstName,lastName, annualRevenue from lead where annualRevenue != Null';
+					return Database.getQueryLOcator(leadQuery);
+				}
+				Global void execute(Database.BatchableContext bContext, List<Lead> leadRecord){
+					if(!leadRecord.isEmpty()){
+						for(Lead ld : leadRecord){
+							totalAnualRevenue += ld.AnnualRevenue;
+						}
+						System.debug('totalAnualRevenue --------------->'+totalAnualRevenue);
+					}
+				}
+				Global void finish(Database.BatchableContext bContext){
+					System.debug('Total Annual Revenue added on Lead Record is : '+totalAnualRevenue);
+				}
+			}
+	
+	
+	
+	
+	
+=========================================================================================================================
+
+#. Future Method:-
+------------------
+==> 
+==> Objects:
+			|
+			 --> 2 Types 
+				
+				1. Setup Objects:
+					--> Setup objects are used to intract with the salesforce metadata
+					    for the declarative Development.
+					
+					EX:
+						User, Profile, BussinessProcess, CustomField, CustomeObject,
+						CustomTab, Docuement, Group,FieldSet, RecordType,
+						SearchLayout, validatonRule,
+						WorkflowRule,...etc.
+						
+				
+				2. Non-Setup Objects:
+					--> Remaining All Standard and custom objects are comes under
+					    "Non-Setup" objects.
+						
+					EX:
+						Account,Contact,Lead,Opportunity,..etc.
+						Hiring_Manager__c, Position__c,Customer__c,Branch_c,
+						Loan__c,..etc.
+						
+		NOTE:-
+			When the User tries to perform the DML Operations on both "Setup" and 
+			"Non-Setup" Objects within a Transaction, Salesforce will raise an 
+			Exception "Mixed_DML_Operation" exception.
+			
+Example of DML Exception:
+-------------------------			
+User Object ---> Setup Object
+		|
+		 --> De-Activate the User through Programming
+
+Hiring Manager Object --> Non-Setup Object
+		|
+		 --> Create a Hiring Manager Record.
+		 
+	Class Name:-
+	-------------
+		public class CommonHelper {
+			public static void mixedDMLOperation(){
+				// De-Activate user
+				User deActivateUser = [Select id, username, isActive from user where username = 'govind15@gmail.com' Limit 1];
+				if(deActivateUser.id != Null){
+					deActivateUser.IsActive = false;
+					update deActivateUser;
+				}
+				
+				// Insert Account Record Or Hiring Manager
+				Account acc = New Account();
+				acc.Name = 'Account Test 001';
+				acc.Phone = '9087654321';
+				acc.Email__c = 'emailk@gmail.com';
+				insert acc;
+			}
+		}
+		
+#. #. A trigger to automatically create a user when a contact  has been created.
+	
+public class CreateAccountAndCreateUserController {
+    public static void createAccountRecordMethod(List<Account> accList){
+        crateUser();
+    }
+    @Future
+    public static void crateUser(){
+        Profile p = [SELECT Id FROM Profile WHERE Name= 'Standard User' limit 1];     
+        User u = new user();
+        u.LastName = 'Test Code Welcome';
+        u.Email = 'gvoindsingh6498@gmail.com';
+        u.Alias = 'Tcode';
+        u.Username = 'iquestbee@gmail.com';
+        u.CommunityNickname = 'test1211';
+        u.LocaleSidKey = 'en_US';
+        u.TimeZoneSidKey = 'GMT';
+        u.ProfileID = p.id;
+        u.LanguageLocaleKey = 'en_US';
+        u.EmailEncodingKey = 'UTF-8';
+        insert u;
+    }
+}
+		
+#. Future Method Rules:
+-----------------------
+1. Method should be pre-fixed with "@future()" annotation.
+
+2. Future Methods should be always defined with "Static" keyword.
+
+3. future method doesn't return any value to the calling environment. So that future
+   method return type should be always "Void".
+   
+4. We can supply the parameters to the future method which should be of "Primitive Data Type"
+	(String,Arrays,COllection).
+	We can't supply the Sobject Type of parameters to the Future methods.
+	
+EX:
+	@Future()
+	public static void createHrRecord(String customerName, String[] countryNames,List<String> lstNames)
+	{
+	}
+
+5. One future method can't invoke an another future method.(cahining Process Not Available)
+
+6. Doesn't provide any Tracking Mechanism.
+
+		
+		
+		 
+			
+	
+	
+	
+	
