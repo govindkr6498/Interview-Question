@@ -1,0 +1,94 @@
+#. Fetch all Accounts that do not have Contacts.
+==> SELECT Name FROM Account WHERE Id NOT IN (SELECT AccountId FROM Contact)
+
+
+
+#. How do you find duplicate email addresses in Contacts using SOQL?
+==> SELECT Email, COUNT(Id) FROM Contact GROUP BY Email HAVING COUNT(Id) > 1
+
+NOTE : This retrieves email addresses appearing more than once.
+
+
+
+
+#. What is the LIMIT and OFFSET in SOQL?
+==> LIMIT restricts the number of records returned.
+==> OFFSET skips a certain number of records.
+
+Example:
+	SELECT Id, Name FROM Contact ORDER BY CreatedDate DESC LIMIT 10 OFFSET 5
+
+NOTE : This fetches 10 records, skipping the first 5.
+
+
+
+
+#. How do you query related objects using SOQL?
+
+	1. Child-to-Parent:
+		SELECT Id, LastName, Account.Name FROM Contact
+	
+	2. Parent-to-Child:
+		SELECT Name, (SELECT Name FROM Contacts) FROM Account
+
+
+
+
+#. What are aggregate functions in SOQL? Provide an example.
+==> SOQL supports aggregate functions like COUNT(), SUM(), AVG(), etc. Example:
+
+	SELECT COUNT(Id), Industry FROM Account GROUP BY Industry
+	
+NOTE: This query counts the number of accounts grouped by industry.
+
+
+
+#. Can SOQL queries have DISTINCT? Explain with an example.
+==> Yes, DISTINCT ensures that duplicate values are removed:
+
+	SELECT DISTINCT Name FROM Account
+	
+NOTE : This query fetches unique account names.
+
+
+
+#. 10. Explain the difference between COUNT() and COUNT(Id) in SOQL.
+==> COUNT() returns the total number of rows, including those without Id values.
+==> COUNT(Id) counts only rows with non-null Id.
+
+	SELECT COUNT() FROM Account
+	SELECT COUNT(Id) FROM Account
+
+
+
+#. What is the governor limit for SOQL queries in Salesforce? How do you optimize your queries?
+==> 50,000 records can be returned by a query.
+==> 100 synchronous queries per transaction.
+==> Max query runtime 120 sec
+==> Max rows processed in batch jobs 50 million
+
+	Optimization Techniques:
+		==> Use selective filters in the WHERE clause.
+		==> Fetch only required fields.
+		==> Use indexes for fields like Id or external IDs.
+		==> Use Query Plan to analyze query performance.
+
+
+
+
+#. How can you use polymorphic relationships in SOQL? Explain with an example.
+==> In Salesforce, certain objects like Task and Event can be related to multiple other objects through polymorphic fields like WhoId and WhatId.
+==> WhoId refers to Lead or Contact.
+==> WhatId refers to standard/custom objects like Account, Opportunity, etc.
+	
+	Example 1: Fetch all tasks related to Contacts:
+		SELECT Id, Subject, WhoId FROM Task WHERE WhoId IN (SELECT Id FROM Contact)
+
+
+#. How do you use HAVING in SOQL?
+==> SELECT AccountId, COUNT(Id) FROM Contact GROUP BY AccountId HAVING COUNT(Id) > 5
+
+
+
+
+
