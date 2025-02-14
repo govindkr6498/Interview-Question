@@ -1,0 +1,205 @@
+#. Apex Class:
+--------------
+==> Salesforce Apex is a programming language used to develop custom 
+	functionalities and business logic in the Salesforce platform. 
+	Think of it as a tool that allows developers to create custom solutions
+	that are specific to a particular business’s needs within the Salesforce
+	environment.
+	
+
+# Use of Salesforce Apex:
+-------------------------
+==> With Salesforce Apex, developers can create custom objects, automate business processes, 
+	create custom user interfaces, and integrate Salesforce with other systems. 
+	In simple terms, Apex is a way to extend the capabilities of the Salesforce platform to 
+	meet the unique needs of a business.
+	
+#. OOPs Concept
+---------------
+1. Object
+2. Class
+3. Abstracttion
+4. Inheritance
+5. Polymorphism
+6. Encapsulation
+
+
+#. Object:
+----------
+==> Any real-world entity that has a state and behavios is
+	known as object. for example:
+	Chair, Pen, table, Bike, keybord.
+	
+==> it can we physical or logical.
+==> A cat is an object because it has color, height, and weight
+	as state and speak, walks, and sleeps as behavior.
+	
+==> A table or chair is also an object because it has color, height, widht, etc.
+
+
+#.Class:
+--------
+==> A class is a collection of object.
+	EX:
+		Vechicles, Tree, Animal.
+
+==> Class can also be defined as blueprint from which we can create 
+	multiple individual objects.
+
+
+
+#. Abstraction:
+---------------
+==> Hiding internal(Implementation) details and exposing/showcasing only 
+	the functionalities in known as abstraction.
+	
+==> for example tv, We don't what happens behind the scene.
+
+
+#. Inheritance:
+---------------
+==> When a child object acquires all the properties(variable/methods) from a parent
+	object then it is called as inheritance.
+	
+	
+	
+#. Polymorphism:
+----------------
+==> When the same task is done in different way then it is known as polymorphism.
+==> When one task can be done in a different way its called polymorphism. Let say
+		we can make tea and cofee with some milk.
+	EX:
+	---
+		Speaking,Walking,convncing, customes, playing,youtube session, teaching.
+		
+
+#. Encapsulation:
+-----------------
+==> Wrapping hiding/code(Putting together) and data together into a single unit is 
+	known as encapsulation.
+	
+==> Binding the data together in a single unit is called Encapsulation.
+
+	
+	
+===================================================================================================================
+
+#. Data Type:
+=============
+1. Primitive Data Type
+2. Non-Primitive Data Type
+
+#. Primitive Data Type:
+-----------------------
+==> Primitive data type contain only one value, like 23, true, 2024-04-24, etc.
+==> Primitive data type specify the size and type of variable value.
+
+1. Integer --> A whole number without a decimal point.
+2. Double --> A number with a decimal point or a fractional component.
+3. Boolean --> A data type that can have one of two possible values - true or false.
+4. Date --> A data type that represent a date.
+5. Time --> A data type that represent a specific time.
+6. DateTime --> A data type that represent a specific date and time.
+7. String --> A sequence of character that can include letters,numbers, and Symbols.
+8. ID --> A unique identifier for an object in salesforce.(18,15) charcater.
+9. Decimal --> A number with a decimal point, with up to 18 digits.
+
+
+
+#. Non-Primitive Data Type:
+---------------------------
+==> Non-primitive data types can contain multiple values or complex data 
+	like a set, list, map,Object.
+	
+
+
+#. Class in Salesforce:
+=======================
+1. Access Modifiers
+2. Variable
+3. Methods
+4. Constructor
+
+
+
+#. Access Modifiers:
+--------------------
+==> Access modifiers in salesforce are used to define the visibility 
+	and accessibility of classes,methods,variables and other components
+	within an organization.
+
+==> There are three types of access modifiers in  salesforce
+1. Public:
+----------
+==> Components with the public access modifiers are visibile and accessible to
+	all classes and triggers in an organization.This means that any class or trigger
+	in the organization can access and use these component.
+	
+2. Private:
+-----------
+==> Components with the private access modifiers are only visibile and
+	accessible within the same class in which they are defined.This means
+	that no other class or trigger in the organization can access or use 
+	these components.
+	
+3. Protected:
+-------------
+==> Components with the protected access modifiers are visibile and
+	accessible within the same class and any subclass that extend the
+	original class. This means that any class that inherits from the 
+	original class can access and use these components.
+
+	EX:
+	---
+		Class A (Parent)
+			1. Protected variables
+		
+		Class B(Child) extend Class A(Variable $ methods)
+			1. Class
+				1. Variable
+				2. Methods
+		
+		
+
+#. Variable:
+------------
+==> Variables in Salesforce are used to store and manipulate data within 
+	apex code.
+
+	EX:
+	---
+		Integer myAge = 5;
+		Decimal mySalary = 76.78;
+		String myName = 'John Doe';
+		
+	
+	
+======================================================================================
+
+#. Methods:
+-----------
+==> A method is a block of code that perform a specific task or action.
+==> methods can be used to perform calcuulation,manipulation data,and
+	interact with the salesforce platform, such as by creating,updating,
+	or deleting records.
+	
+	EX:
+	---
+	
+		public class TestMethodController {
+			public static Integer calculateSum(Integer firstNum,Integer secondNum){
+				System.debug(firstNum+secondNum);
+				return  firstNum+secondNum;      
+			}
+			public static Integer calculateMul(Integer firstNum,Integer secondNum){
+				System.debug(firstNum*secondNum);
+				return  firstNum*secondNum;      
+			}
+		}
+	O/P:
+	----
+		46
+		48
+		
+		
+		
