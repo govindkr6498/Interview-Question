@@ -1,0 +1,383 @@
+#. Array
+--------
+--> Array is a collection of homogeneous(similar) elements.
+--> Array can't grow and shrink dynamically.
+--> Array can be accessed fatser and less memory.
+
+
+#. Collection:
+--------------
+--> It is collection of hoterogeneous elements.
+--> It can grow and shrink dynamically.
+--> Collection are slow compared to an array and consume more memory.
+
+
+=====================================================================
+
+#. List:
+--------
+--> A list is an ordered collection of elements.
+--> List can be any datatypes - Primitive types, collection, Sobjects, User-defnied types
+	and built-in apex type.
+--> Duplicates values are allowed.
+--> It can grow dynamically at run time.
+--> Null values are accepted.
+
+	
+	Syntax:-
+		
+			List<DataType> ListName = New List<DataType>();
+		
+	Ex:-
+	----
+			List<String> myList = New List<String>();
+			
+
+==========================================================================
+
+#. List Method:-
+----------------
+
+1. Add(Object) 
+--------------
+	==> Adds an elements to the end of the list.
+	
+	Ex:
+	---
+		List<String> myList = New List<String>();
+		myList.add('Sam');
+		myList.add('ravi');
+		myList.add('Ram');
+		myList.add('Govind');
+		System.debug('myList --> '+myList);
+		
+	O/P:-
+			myList -->  (Sam, ravi, Ram, Govind)
+
+
+---------------------------------------------------------------------					
+	
+2. Add(Integer, Object)
+-----------------------
+	==> Insert an element into the list at the specified index position.
+	
+	EX:
+	---
+		List<String> myList = New List<String>();
+		myList.add('Sam');
+		myList.add('ravi');
+		myList.add('Ram');
+		myList.add('Govind');
+		System.debug('myList '+myList);
+
+		myList.add(2,'Kanchan');
+		System.debug('myList '+myList);
+
+		O/P:-
+			myList (Sam, ravi, Ram, Govind)
+			myList (Sam, ravi, Kanchan, Ram, Govind)
+
+-----------------------------------------------------------------------	
+	
+3. AddAll(List/Set)
+---------------
+	==> Adds all of these elements in the specified list to the list that calls
+		the method. The set and list must be of the same type.
+	
+	
+	EX:
+	---
+		
+		List <Integer> x = new List <Integer> {1,2,3};
+		List <Integer> y = new List <Integer> {4,5,6};
+		x.addall(y);
+		system.debug(x);
+	
+	O/P:-
+		(1, 2, 3, 4, 5, 6)
+		
+		
+----------------------------------------------------------------------------------
+
+4. Clear()
+----------
+	==> This method will remove all the elements in the list.
+	
+	EX:-
+	----
+		List <Integer> x = new List <Integer> {1,2,3};
+		List <Integer> y = new List <Integer> {4,5,6};
+		x.addall(y);
+		x.clear();
+		system.debug(x);
+	
+	O/P:-
+	-----
+		()
+		
+		
+--------------------------------------------------------------------------------
+	
+5. Clone()
+----------
+==> This will create a duplicate copy of list of elements
+
+	EX:-
+	----
+		
+		List<Integer> ages = New List<Integer>{10,40,30,25,50};
+		List<Integer> values =  ages.clone();
+		System.debug('ages ==> '+ages);
+		System.debug('values ==> '+values);
+		values.add(90);
+		System.debug('ages ==> '+ages);
+		System.debug('values ==> '+values);
+
+	O/P:-
+		
+		ages ==> (10, 40, 30, 25, 50)
+		values ==> (10, 40, 30, 25, 50)
+		
+		// After add element in value List.
+		ages ==> (10, 40, 30, 25, 50)
+		values ==> (10, 40, 30, 25, 50, 90)
+		
+		
+---------------------------------------------------------------------------
+
+#. Contains(listElement):
+-------------------------
+==> Return true if the list contains the specific elements.
+
+	EX:-
+	----
+		List<String> nameList = New List<String>{'Govind','Kanchan','Shadab'};
+		Boolean isGovind = nameList.contains('Govind');  
+		Boolean isGovind2 = nameList.contains('govind'); 
+		Boolean isShadab = nameList.contains('Shadab'); 
+		Boolean isTapan = nameList.contains('Tapan'); 
+		System.debug('isGovind --> '+isGovind);
+		System.debug('isGovind2 --> '+isGovind2);
+		System.debug('isShadab --> '+isShadab);
+		System.debug('isTapan --> '+isTapan);
+	
+	
+	O/P:
+	----
+		isGovind --> true
+		isGovind2 --> false
+		isShadab --> true
+		isTapan --> false
+		
+-------------------------------------------------------------------------------------		
+
+6. deepClone(Boolean, Boolean,Boolean)
+--------------------------------------
+==> Makes a duplicate copy of the list sObject records, including the 
+	sObject records theselves.
+	
+	EX:-
+	----
+		
+	
+	O/P:-
+	-----
+	
+
+
+
+
+
+7. equals(List)
+---------------
+==> Compare this list with the specified list and return true,
+	if both lists are equal, otherwise return false.
+
+NOTE:-
+	1. Two lists are equal if their elements are equal and are in the same order.
+		The " == " operator is used to compare the elements of the lists.
+	
+	2. The " == " operator is equivalent to calling the equals method, so you can call 
+		List1.equals(list2); instead of list1 == list2;
+		
+	O/P:-
+	-----
+	
+		List<String> nameList1 = New List<String>{'Govind','Kanchan','Shadab'};
+		List<String> nameList2 = New List<String>{'Govind','Kanchan','Shadab'};
+		List<String> nameList3 = New List<String>{'Govind','Shadab'};
+		List<String> nameList4 = New List<String>{'Shadab','Govind'};
+		Boolean firstSecondNameEquals = nameList1.equals(nameList2);
+		Boolean firstThirdNameEquals = nameList1.equals(nameList3);
+		Boolean thirdFourthNameEquals = nameList3.equals(nameList4);
+		System.debug('firstSecondNameEquals --> '+firstSecondNameEquals+'  nameList1 == nameList2 ->'+ (nameList1 == nameList2));
+		System.debug('firstThirdNameEquals --> '+firstThirdNameEquals+'  nameList1 == nameList3 ->'+ (nameList1 == nameList3));
+		System.debug('thirdFourthNameEquals --> '+thirdFourthNameEquals+'  nameList3 == nameList4 ->'+ (nameList3 == nameList4));
+
+	
+	EX:-
+	----
+		firstSecondNameEquals --> true   nameList1 == nameList2 -> true
+		firstThirdNameEquals  --> false  nameList1 == nameList3 -> false
+		thirdFourthNameEquals --> false  nameList3 == nameList4 -> false
+		
+		
+
+--------------------------------------------------------------------------------------
+	
+8. get(index)
+---------------
+==> This method will return the element which is at the given index.
+	
+	Ex:-
+	----
+		List <Integer> nums = new List <Integer> {11,22,33};
+		Integer a = nums.get(1);
+		Integer b = nums.get(0);
+		Integer c = nums.get(2);
+		System.debug('a = '+a);
+		System.debug('b = '+b);
+		System.debug('c = '+c);
+	
+	O/P:-
+	-----
+		a = 22
+		b = 11
+		c = 33
+
+-------------------------------------------------------------------------
+
+9. getsObjectType()
+-------------------
+--> Return the token of the sObject type that makes a list of sObjects.
+
+
+
+
+10. hashCode()
+--------------
+--> Return the hashcode corresponding to this list and its contents.
+
+
+
+11. isEmpty()
+-------------
+--> Return true if the list has zero elements.
+	
+	EX:-
+	----
+		List<String> str = New List<String>();
+		System.debug('str is Empty -> '+str.isEmpty());
+		str.add('');
+		System.debug('str is Empty -> '+str.isEmpty());
+
+	O/P:-
+	-----
+		str is Empty -> true
+		str is Empty -> false
+		
+
+-------------------------------------------------------------------------------------------------------------
+
+#. IndexOf()
+------------
+	==> Return the index of the first occurrence of the specified element in this list. 
+		If the list does not contains the element, retunr -1.
+		
+	EX:-
+	----
+		List<Integer> numList = New List<Integer>{2,3,4,5,6,7};
+		System.debug('Index of 2 : '+numList.indexOf(2));
+		System.debug('Index of 3 : '+numList.indexOf(3));
+		System.debug('Index of 7 : '+numList.indexOf(7));
+		System.debug('Index of 9 : '+numList.indexOf(9));
+
+	
+	O/P:
+	----
+		Index of 2 : 0
+		Index of 3 : 1
+		Index of 7 : 5
+		Index of 9 : -1
+
+------------------------------------------------------------------------------------------
+
+12. iterator()
+--------------
+	--> Retunr an instance of an iterator for this list.
+	
+
+
+----------------------------------------------------------------------------------
+13. remove(Integer)
+-------------------
+--> This method will remove the element at the given index
+	
+	EX:-
+	----
+		
+		List <Integer> nums = new List <Integer> {11,22,33};
+		System.debug('Before Remove nums = '+nums);
+		nums.remove(1);
+		System.debug('After Remove nums = '+nums);
+
+	O/P:
+	----
+		Before Remove nums = (11, 22, 33)
+		After Remove nums = (11, 33)
+
+
+--------------------------------------------------------------------------------------
+14. Set(index,Object)
+-----------------------
+	--> This will replace the element at the given index with value.
+
+	EX:-
+	----
+		
+		List<Integer> numList = New List<Integer>{2,3,5,6,1};
+		System.debug('NumList -->'+numList);
+		numList.set(1,10);
+		System.debug('Aftr Update numList -->'+numList);
+			
+	O/P:-
+	-----
+		NumList -->(2, 3, 5, 6, 1)
+		Aftr Update numList -->(2, 10, 5, 6, 1)
+		
+---------------------------------------------------------------------------------
+
+15. Size()
+----------
+	--> This will return number of elements in the list.
+	
+	EX:
+	---
+		List<Integer> numList = New List<Integer>{2,3,2,5,6,7,8,1};
+		System.debug('Size -> '+numList.size());
+		
+	O/P:-
+	-----
+		Size -> 8
+	
+	
+--------------------------------------------------------------------------------------
+
+16. Sort():
+-----------
+--> This method is used to sort the elements in the ascending order.
+
+	EX:-
+	----
+		List <Integer> nums = new List <Integer> {10,90,80,11,220,33,100};
+		System.debug('Before Sort nums = '+nums);
+		nums.sort();
+		System.debug('After Sort nums = '+nums);
+		
+	O/P:-
+	-----
+		Before Sort nums = (10, 90, 80, 11, 220, 33, 100)
+		After Sort nums = (10, 11, 33, 80, 90, 100, 220)
+
+
+-------------------------------------------------------------------------------------
