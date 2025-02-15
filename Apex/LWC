@@ -1,1 +1,167 @@
-safddaf
+#. What is Lightning Web Component(LWC)?
+==> LWC is a framework developed by salesforce for building web 
+	aplication on the Salesforce plateform.It uses we standards 
+	like HTML, CSS and Javascript to create reusable and high-performing
+	component.
+
+
+#. Explain the concept of data binding in LWC
+==> Data binding in LWC establishes a connection between the
+	component's javascript code and its HTML template. it enables 
+	dynamic updates and synchronization of data between the component'salesforce
+	properties and the UI.
+
+#. How do you comminucattes between LWC components?
+==> LWC provides various methods for component communication. These
+	Include property binding for parent-child communication,events for 
+	child-parent comminucation and the publish-subscribe pattern for
+	communication between unrelated components.
+
+#. How can you communication between parent and child component in LWC?
+==> Communication between parent and child components in LWC can be achieved
+	through property binding and event handling. The parent component
+	can pass data to the child component using property binding, and the 
+	child component	can notify the parent component of any events using 
+	custom events
+
+#. How do you handle error and exception in lWC?
+==> Error handling in LWC can be done using try-catch blocks or
+	leveraging the onError lifecycle hook. tou can catch exceptions
+	and display appropriate error message to the user, ensuring a smooth
+	user experience.
+	
+	
+#. How do you handle user input in LWC?
+==> LWC provides mechanism to handle user input, such as using event handlers,
+	two-way data binding, and reactive properties. Event handlers can be used 
+	to capture user actions like button clicks or input changes.
+	
+===========================================================================================	
+	
+#. What is decorator?
+==> Decorator are design pattern that will be adding functionality
+	into the properties and function in LWC.
+	
+==> There are three type of Decorator in LWC
+	1. track
+	2. Api
+	3. Wire
+==> @API decorator will be used to make these properties and function
+	publicly available between component.
+	
+==> All public properties are reactive. Reactive means the framework
+	observe the property for change.when property change value then
+	the framework reacts and renders the component.
+
+
+==> @Track decorator that will be making the property and the methods 
+	as a private and property that can only be access within the 
+	component only and can't be used outside the component.
+	
+==> @Wire decorator that will be used to call apex method and with
+	the help of those apex method we can retrive the data and we 
+	can show the data on the LWC component
+
+==================================================================================================
+	
+#. Explain the life cycle hooks of an LWC component?
+==> The lifecycle hooks of an LWC component refer to a series 
+	of methods that are invoked during the time of component 
+	creation , upate, and removal from the DOM.These method provide
+	a way to interact and manipulate the component at different stages
+	of its lifecycle.
+	
+	
+	#. Creation:
+	1. Constructor():
+		==> This is the first hook to run when an instance of the component
+			is created. It's where you initialize variable and set default values.
+		
+		==> Invoked when the instance of the component is created.
+		==> fired in the parent component first since it flow from parent to child.
+		==> you have to call super() inside first to call parent class constructor.
+	
+	#. Intialization:
+	2. connectedCallBack():
+		==> After the component is initialized, this hook is called.it's an
+			Ideal place for DOM manipulation and data retrieval.
+			
+		==>Invoke when component inserted into DOM.
+		==> it flows Parent to child.
+		==> Used for to perfomr initialisation task such as fetch data, set upate
+			cache, listen events.
+		==> To check component is connected in DOM, use isConnected method.
+
+			
+	#. Rendering:
+	3. renderedCallback():
+		==> Use it to perform logic after a component has finished the rendering
+		    phase. It invoked when a component is completely rendered on UI.
+		==> Flow from child to parent component.
+		==> Component rendered many times during tehre lifecycle, to track renderedBack(),
+			use isRendered boolean field.
+		==> Property leads to infinite loop in renderedCallBack().
+		
+	
+	#. Reactivity:
+		==> Whenever a property or variable changes in the component, it may
+		trigger a reactivity cycle. During this cycle, the component checks 
+		for changes in properties, and if changes are deacted, it re-renders 
+		and invokes the "renderedCallBack" again.
+		
+	#. Destruction:
+		4. DisconnectedCallback():
+		==> When the component is removed from the DOM, this hook is called.
+		    It's an excellent place for cleanup operations and releasing resources 
+			like event listeners.
+		 
+		 ==> Called when the element is removed from a document(remove event listener, remove time interval etc)
+		 ==> follow parent to child
+		 
+	#. Error Handling:
+		5. ErrorCallback()
+		==> If an erro occurs during rendering, this hook is invoked.
+		    it provides an opportunity to fracefully handle error and 
+			display appropriate message.
+		
+		==> Two argumewnts are passed in errorCallback(error,stack), the error
+			argument is a Javascript native error object, and the stack argument
+			is a string.
+	
+	
+=================================================================================================================================================
+
+#. How to Send data from parent to child in LWC?
+==> There are 3 ways to do it.
+		1. Public Properties
+		2. Public Function
+		3. Public Properties with getter-setter
+		
+1. https://www.linkedin.com/pulse/how-send-data-from-parent-child-lwc-gaurav-gupta/
+
+
+		
+			
+		
+		
+		
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+#. Pubs subs (Lightning message Service)
+	
+
+#. How does imperatice call different from wire call in lwc
+	
+
+	
+
+	
+	
