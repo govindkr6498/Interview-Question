@@ -558,6 +558,11 @@ Apex Trigger	✅ Yes	✅ Yes	✅ Yes	Complex logic
 Process Builder & Flow	✅ Yes	✅ Yes	❌ No	Admin-friendly, no code
 
 
+1. What is differnece between IsBlank and s Null?
+==> ISBLANK(expression)	Checks if a field is empty or blank	Text, Number, Date, Picklist	Works for both Text and Number fields
+ISNULL(expression)	Checks if a field has a NULL value	Only Number, Date, Checkbox	Does not work for Text fields
+
+
 
 
 
