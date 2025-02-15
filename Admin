@@ -1,0 +1,565 @@
+1. What is difference between SOQL and SOSL?
+==> SOQL Stands for Salesforce Object Query Language.
+==> Retrieve the records from the database by using "SELECT" keyword.
+==> We can access 50k recors in single SOQL.
+==> In single transaction we can perform 100 SOQLs.
+==> We can retrieve from single  object or from multiple object that are related to each others.
+==> It ican be used in classes and trigger.
+==> DML Operation can we performed on Query results.
+==> Return records.
+==> Record are store in collection.Records are pertaining to single sObject.
+==> SOQL against the same field will be slow.
+
+
+==> SOSL stands for salesforce Object Search Language.
+==> Retrieve the records from the database by using the "FIND" keyword.
+==> We ca retieve the 2k records in SOSL.
+==> In single transaction we can perform 20 SOSLs.
+==> We can retieve multiple objects and fields values effeciently when the objects may or may not be related to each other.
+==> It can use in classes but not in triggers.
+==> DML Operation can't be performed on search results.
+==> Rsturn fields.
+==> Records are pertaining to different sObject.
+==> We can query on multiple tables.
+==> All field are already text indexed.
+
+
+2. What is order of execution in salesforce?
+==> A set of rules that describe the path, a record takes through all 
+    automations and the events that happen from SAVE to COMMIT.
+	
+
+3. Order of Execution.
+==> Load the original Records from database for UPSERT.
+==> Older value are overwritten.
+==> System validation Rule(Page Layout specific Rules/Field Formate,Maximum Length)
+==> Execute before record-trigger flows.
+==> Execute all before Apex triggers.
+==> Run Custom validation Rule.
+==> Execute Duplicate Rules.
+==> Save the Records to the Database, but doesn't commit yet.
+==> Executes all after triggers.
+==> Assignment Rule
+==> Executes auto-response rules.
+==> Execute workflow rules.
+==> Execute after record trigger flow.
+==> Rollup summary formula update.
+==> Commit all DML operations to the database.
+==> Execute all after-commit logic.
+
+After the commit Logic.
+==> Run all asynchronous Apex (Trigger → Queueable → Future → Batch)
+
+
+4. What is Role and Profile?
+==> Roles provide access to records visibility for the users.
+==> it is a record -level access.
+==> It follow a hierarchy. Data visible permission are given based on hierarchy.
+==> The role is always depand on the profile.
+==> optional for users. depanding on the need for record-level security.
+==> Roles controler acess to record and field only.
+
+==> Profile provide acess controlnof CRED record of the users.
+==> It is an Object and field-level access.
+==> It does not follow any hierarchy.Permissions are given based on the profile.
+==> The profile can be independent of the role.
+==> Profiles are mandatory for users.
+==> Profile controler acess to objects,field-level security layouts,record types, and apps.
+
+
+
+5. What is profile?
+==> A Profile is set of permissions that define what a user can do within the org,
+==> It controls object-level security,field-level security, and permissions like 
+	CRUD(Create,Read,Update,Delete),record types, and page layouts.
+
+6. What is a Role?
+==> Role is part of Role hierarchy which determines record-level access. 
+==> It helps define data visibility for user and allows sharing of records based on hierarchy.
+
+7. Difference between Role and Profile.
+==> Roles provide access to records visibility for the users.
+==> it is a record -level access.
+==> It follow a hierarchy. Data visible permission are given based on hierarchy.
+==> The role is always depand on the profile.
+==> optional for users. depanding on the need for record-level security.
+==> Roles controler acess to record and field only.
+
+==> Profile provide acess controlnof CRED record of the users.
+==> It is an Object and field-level access.
+==> It does not follow any hierarchy.Permissions are given based on the profile.
+==> The profile can be independent of the role.
+==> Profiles are mandatory for users.
+==> Profile controler acess to objects,field-level security layouts,record types, and apps.
+
+8. what are the number of Standard profile available in salesforce?
+==> System Administrator
+==> Standard user
+==> Read Only
+==> Solution Manager
+==> Marketing User
+==> Contract Manager
+
+9. what is permission set.
+==> Permission set gives users access to additional right beyond whta their profile permits.
+==> A permission set is a collection of additional permission that can be assigned to a user on top of their profile.
+==> It helps extend access without modifying the profile.
+
+
+10. what is one option available in profile but not in permission set( and vice versa)
+==> Profile can controler Page layout Assignments but permission set can't.
+==> Permission Set  can assign session settings but profile can't.
+
+
+11. How to delete a user in salesforce?
+==> Users ca not be deleted in salesforce. You can deactivate or freeze them.
+
+12. what is deactivate  and freeze user.
+==> Deactivate a user permanently removes their access to salesforce, but their data(record,ownerships,etc) remains.
+==> User can not be login after deactivation.
+==> Releases the user's license,so it can be assign to someone else.
+==> Some references(like approval processes) may need to be reassigned before deactivating.
+
+
+NOTE: When Deactivate?
+	1. When an employee leaves the company.
+	2. When you need to free up a license.
+	
+	
+==> Freezing a user temporarily blocks their access. but their license remains assigned.
+==> user can not login  but their license is still occupied.
+==> Does not release the license.
+==> Freezing can be done without deactivating the user.
+
+NOTE: When to Freeze?
+	1. When a user is under investigation (Security concerns)
+	2. When an employee ison temporarily leave.
+	
+13. Governor Limits.
+==> Governor limit are runtime restriction enforced by salesforce to ensure efficinet resource usage in a multi-tenant environment.
+
+
+==> CPU time per transaction 			--> 10 seconds (synchronous) / 60 seconds (async)
+==> Heap size per transaction 			--> 6 MB (synchronous) / 12 MB (async)
+==> Max records fetched by SOQL	    	--> 50,000 records
+==> Max SOQL queries per transaction  	--> 100 queries
+==> Max DML statements per transaction 	--> 150 statements
+==> Max callouts per transaction		--> 100 callouts (HTTP, SOAP, REST)
+==> Max future method calls	50 per transaction
+
+
+14. What are the types of Reports in salesforce?
+==> Tabular --> Simple table format, no grouping.
+==> Tabular --> Simple table format, no grouping
+==> Matrix  --> Data grouped both rows and columns
+==> Joined  --> Combines multiple reports into one.
+
+15. What are the different Types of Relationship in salesforce?
+==> Lookup Relationship
+==> Master-Detail Relationship
+==> Many-to-Many Relationship (Achieved using a Junction Object)
+==> Hierarchy Relationship 
+==> Self Relationship
+
+16. What is Lookup Relationship in Salesforce?
+==> A Lookup Relationship create a parent-child relationship between two object without dependency.
+==> If the parent record is deleted , the child remains.
+
+
+17. What is Master-Detail Relationship?
+==> A Master-Detail Relationship creates a tightly linked parent-child relationship
+==> If the parent is deleted, the child is also deleted.
+==> Roll-Up Summary fields allowed(Sum,Min,Max,Count).
+==> Mandatory Relationship --> A Child record must have a parent.
+==> Child record inherits security & ownerships.
+
+Example: 
+	Opportunity (Master) and Opportunity Line Items (Detail).
+
+18. What is a Junction Objects in salesforce?
+==> A Junction Object enables a many-to-many relationship between two objects.
+==> A junction objects is a custom object with two master-detail relationships,and it is the key to making a many-to-many relationship.
+Example:
+	==> OpportunityLineItem (Opportunity Product)	==> Opportunity	 ==> Product
+	==> PricebookEntry	==> Pricebook  ==> Product
+	==> CaseSolution	==> Case	==> Solution
+
+19 . There are two object both are lookup relationship, i am trying to delete a parent. if the parent has child object. then i don't want to delete. how to achive it?
+==> one radio button is available on lookup field.
+	"Don't allow deletion of the lookup record that's part of a lookup relationship.".
+
+
+20. Can we convert a Lookup Relationship into a Master-Detail Relationship?
+==> yes, but only if all child records have a parent record.
+
+
+21. What is Flow in salesforce?
+==> Flow is a visual automation tool that allows users to create complex workflows,interact with records, and data operations.
+
+
+22. How many types of salesforce flow?
+==> Screen flow
+==> Record Trigger Flow
+==> Schedule Flow
+==> Autolanched Flow
+==> Platform event trigger flow.
+==> 
+
+23. What is Approval Processes?
+==> Approval processes define sequential steps for approving records like Opportunities or Expense Reports.
+
+
+24. what is Change Set in salesforce?
+==> Change Sets are used to deploy metadata changes(Objects,Fields,Workflows,etc)
+
+25. What is Data loader?
+==>  Data Loader is a tool to insert , update,delete and export data in bulk CSV files.
+==> Insert,Update record maximum 5 millions.
+==> Work on All Objects
+
+
+26. What are Sandbox in salesforce?
+==>A Salesforce is a copy of a salesforce org used for development and testing.
+==> Types
+	==> Developer  --> Full Metadata , No Data
+	==> Developer Pro --> More Storage
+	==> Partial Copy --> Some Data & Metadata
+	==> Full --> Entire org copy
+	
+	
+27. What are the Audit fields?
+==> Audit Fields track record history and include:
+	==> CreatedBy
+	==> CreatedDate
+	==> LastModifiedBy
+	==> LastModifiedDate
+	
+
+28.  How did you convert 15 digit into 18 digit id?
+==> By using function CASESAFEID(Id)
+
+
+29.I want to delete account record. how many ways to show error message to user.
+==> 1. Validation Rule (ISNEW() = FALSE)
+	2. Trigger
+	3. Reocrd Trigger Flow (Before Delete Record-Triggered Flow)
+	4. Lightning Web Component (LWC) or Aura Component
+	
+	
+30.  Can we call lwc from flow?
+==> Yes! You can call a Lightning Web Component (LWC) from a Flow using a Screen Flow
+
+
+31. . In real time schanario when you decide use trigger wethear flow?
+==> Admin-Friendly: No coding required, easy to modify.
+✅ Simple Record Automation: Updating related records, sending emails, or making field updates.
+✅ Before-Save Updates: For better performance (Before-Save Flows are 10x faster than triggers).
+✅ Declarative Solution Preferred: When Apex is not necessary.
+✅ Bulk Data Handling is NOT Critical: Standard Flow behavior may hit limits for large datasets.
+
+
+==>Complex Business Logic: If-else conditions, loops, multiple record updates.
+✅ Bulk Processing Required: Handles large data volumes more efficiently.
+✅ Integration with External APIs: Callouts, external system interactions.
+✅ Handling Recursive Operations: Prevent infinite loops when records update each other.
+✅ Multiple Related Object Updates: If multiple objects need updates in one transaction.
+
+
+10. How to decide to use before save and after save flow? and how do you differentiat wheather to use flow to trigger?
+==> Salesforce offers two types of record-triggered flows:
+1️⃣ Before-Save Flow (Fast Field Updates)
+2️⃣ After-Save Flow (Actions and Related Records)
+
+Choosing between them depends on whether you need to update the same record or perform actions on related records.
+
+✅ When to Use Before-Save Flow?
+🔥 For Fast Field Updates (Performance Optimized, 10x Faster than Triggers)
+
+✅ Use when you only need to update fields on the same record (without DML operations).
+✅ Executes before the record is saved to the database (like before insert & before update in Apex Trigger).
+✅ No need for an additional DML statement (Update).
+
+🔹 Example Use Cases for Before-Save Flow:
+
+Auto-populating a "Status" field based on conditions.
+Automatically setting the Owner field when a record is created.
+Updating a calculated field without using a formula field.
+📌 Example:
+👉 If an Opportunity’s Amount > 100,000, automatically set Priority to “High.”
+✅ Best to use Before-Save Flow because it updates the same record.
+
+✅ When to Use After-Save Flow?
+🔥 For Creating/Updating Related Records & Complex Automation
+
+✅ Use when you need to update related records or send email notifications.
+✅ Executes after the record is saved to the database (like after insert & after update in Apex Trigger).
+✅ Supports DML operations (Insert, Update, Delete, Callouts, Email Actions, etc.).
+
+🔹 Example Use Cases for After-Save Flow:
+
+Creating a child record (e.g., when an Account is created, create a Contact).
+Sending an email notification after a record is created.
+Updating related records (e.g., updating all Contacts when an Account's status changes).
+📌 Example:
+👉 If an Account is created, automatically create a default Contact.
+✅ Best to use After-Save Flow because it inserts a new related record.
+
+🚀 Before-Save vs. After-Save Flow: Decision Table
+Scenario	Use Before-Save Flow?	Use After-Save Flow?
+Updating a field on the same record	✅ Yes	❌ No
+Updating related records	❌ No	✅ Yes
+Sending email notifications	❌ No	✅ Yes
+Calling external systems (API Callout)	❌ No	✅ Yes
+Creating a related record	❌ No	✅ Yes
+Deleting a record	❌ No	✅ Yes
+Executing complex logic (multiple operations)	❌ No	✅ Yes
+📌 How to Decide Between Flow and Trigger?
+Feature	Flow	Apex Trigger
+Ease of Use	✅ No Code Needed	❌ Requires Apex Code
+Performance	✅ Before-Save Flow is Fast	❌ Can be slower due to SOQL & DML
+Updating Same Record	✅ Before-Save Flow	✅ Before Trigger
+Updating Related Records	✅ After-Save Flow	✅ After Trigger
+Bulk Processing (Handling 200+ Records)	❌ Limited	✅ Optimized for Bulk
+Complex Business Logic (Loops, Recursion, Callouts)	❌ Limited	✅ Supports Complex Logic
+Before Delete Logic	❌ Not Supported	✅ Trigger Required
+API Callout (REST/SOAP)	❌ No	✅ Yes
+Custom Roll-Up Summary	❌ No	✅ Yes
+🚀 Best Practices for Flow vs. Trigger
+Use Flow for simple automation (e.g., field updates, email alerts).
+Use Trigger for bulk processing, complex logic, and callouts.
+Use Before-Save Flow for same-record updates (faster than triggers).
+Use After-Save Flow for actions on related records.
+Avoid using Flow & Trigger together on the same object to prevent conflicts.
+
+
+
+
+12. In how many ways we can make a field required ?
+ChatGPT said:
+📌 How Many Ways Can We Make a Field Required in Salesforce?
+Salesforce provides multiple ways to make a field mandatory/required based on different scenarios. Below are six ways to enforce field requirements:
+
+🔹 1️⃣ At the Object Level (Field Properties)
+✅ Best for: Making the field required across all layouts, API, and automation.
+✅ How to Set:
+
+Go to Setup → Object Manager → Select Object → Fields & Relationships.
+Click the field → Check “Required”.
+Save the changes.
+🚀 Impact:
+✅ The field is required everywhere (Page Layout, API, Flow, Triggers).
+❌ Cannot be bypassed by automation (Trigger, API, Data Loader).
+
+🔹 2️⃣ Using Page Layouts
+✅ Best for: Making a field required only on UI (not API or automation).
+✅ How to Set:
+
+Go to Setup → Object Manager → Select Object → Page Layouts.
+Select the Layout → Click on the wrench (🔧) icon on the field.
+Check “Required” and Save.
+🚀 Impact:
+✅ Field is required only when editing via the UI (Record Page).
+❌ Not enforced in API, Flow, Apex, or Data Loader.
+
+🔹 3️⃣ Using Validation Rules
+✅ Best for: Making a field required conditionally (based on other field values).
+✅ How to Set:
+
+Go to Setup → Object Manager → Validation Rules.
+Click New → Define rule logic.
+Example:
+plaintext
+Copy
+ISBLANK(Account_Number__c)
+Add an Error Message (e.g., "Account Number is required").
+🚀 Impact:
+✅ Can apply conditional logic (e.g., field required only for specific record types).
+✅ Works in UI, API, Flow, and Triggers.
+❌ Can be bypassed by Apex Trigger (addError can override it).
+
+🔹 4️⃣ Using Record Types & Page Layouts
+✅ Best for: Making a field required only for specific Record Types.
+✅ How to Set:
+
+Create different Record Types for the object.
+Assign different Page Layouts for each Record Type.
+In some layouts, mark the field as required.
+🚀 Impact:
+✅ The field is required only for specific Record Types.
+✅ Does not affect API or automation.
+❌ If multiple layouts exist, it can become complex to manage.
+
+🔹 5️⃣ Using Flow (Screen Component)
+✅ Best for: Making a field required in a Screen Flow form.
+✅ How to Set:
+
+In Flow Builder, add a Screen Component.
+Drag the input field → Check “Required”.
+🚀 Impact:
+✅ Field is required only when using the Flow UI.
+❌ Does not enforce the requirement outside the Flow.
+
+🔹 6️⃣ Using Apex Trigger (addError)
+✅ Best for: Enforcing field requirements at the database level (before insert/update).
+✅ How to Set:
+
+apex
+Copy
+trigger AccountTrigger on Account (before insert, before update) {
+    for (Account acc : Trigger.new) {
+        if (String.isBlank(acc.AccountNumber)) {
+            acc.addError('Account Number is required!');
+        }
+    }
+}
+🚀 Impact:
+✅ Works for API, UI, Data Loader, and Automation.
+✅ Cannot be bypassed (unless disabled in code).
+❌ Requires Apex knowledge.
+
+📌 Summary: Choosing the Right Method
+Method	Enforced in UI?	Enforced in API/Data Loader?	Conditional Logic?	Easy to Implement?
+Field-Level Required	✅ Yes	✅ Yes	❌ No	✅ Easy
+Page Layout	✅ Yes	❌ No	❌ No	✅ Easy
+Validation Rule	✅ Yes	✅ Yes	✅ Yes	✅ Easy
+Record Type + Layout	✅ Yes	❌ No	✅ Yes	🔸 Medium
+Flow (Screen)	✅ Yes (only in Flow)	❌ No	✅ Yes	✅ Easy
+Apex Trigger (addError)	✅ Yes	✅ Yes	✅ Yes	❌ Requires Coding
+🚀 Best Practice Recommendations
+Use Field-Level Requirement for consistent enforcement.
+Use Validation Rules for conditional requirements.
+Use Apex Triggers if working with complex business logic.
+Use Page Layouts for UI-only enforcement.
+Use Flow for a guided process (Screen Flow only).
+Would you like examples for specific use cases? 😊
+
+
+
+
+13. In how many cases we can make a field read only ?
+ChatGPT said:
+📌 How Many Ways Can We Make a Field Read-Only in Salesforce?
+Salesforce provides multiple ways to make a field read-only based on different scenarios. Below are six methods to enforce a field as read-only:
+
+🔹 1️⃣ Field-Level Security (FLS)
+✅ Best for: Making a field read-only for specific profiles across the entire system.
+✅ How to Set:
+
+Setup → Object Manager → Select Object → Fields & Relationships.
+Click on the field → Click Set Field-Level Security.
+Uncheck "Visible" and Check "Read-Only" for the profiles you want.
+Save the changes.
+🚀 Impact:
+✅ The field is always read-only in UI, API, Reports, and Automation.
+❌ Cannot be overridden in Page Layouts or Record Types.
+
+🔹 2️⃣ Page Layout
+✅ Best for: Making a field read-only only on specific Page Layouts.
+✅ How to Set:
+
+Setup → Object Manager → Select Object → Page Layouts.
+Select a Page Layout.
+Click the wrench (🔧) icon on the field.
+Check “Read-Only” and Save.
+🚀 Impact:
+✅ The field is read-only in UI, but editable via API, Flow, and Apex.
+❌ Users can still edit via Data Loader, API, Flow, and Triggers.
+
+🔹 3️⃣ Record Type + Page Layouts
+✅ Best for: Making a field read-only only for specific Record Types.
+✅ How to Set:
+
+Create different Record Types for the object.
+Assign different Page Layouts for each Record Type.
+In some layouts, mark the field as read-only.
+🚀 Impact:
+✅ The field is read-only only for certain Record Types.
+✅ Does not affect API or automation.
+❌ If multiple layouts exist, it can become complex to manage.
+
+🔹 4️⃣ Validation Rule
+✅ Best for: Making a field conditionally read-only (e.g., based on Profile, Status, or another field).
+✅ How to Set:
+
+Setup → Object Manager → Validation Rules.
+Click New → Define rule logic.
+Example: If the Account is Approved, make the field read-only:
+plaintext
+Copy
+ISPICKVAL(Status__c, 'Approved') && NOT(ISBLANK(My_Field__c))
+Add an Error Message (e.g., "This field is read-only once the record is approved").
+🚀 Impact:
+✅ Works in UI, API, Flow, and Triggers.
+✅ Can apply conditional logic (e.g., field read-only only if Status = ‘Approved’).
+❌ Error message appears only when a user tries to edit & save the record.
+
+🔹 5️⃣ Using Flow (Screen Component)
+✅ Best for: Making a field read-only in Screen Flow UI forms.
+✅ How to Set:
+
+In Flow Builder, add a Screen Component.
+Drag the input field → Change its property to Read-Only.
+🚀 Impact:
+✅ Field is read-only only in Flow UI.
+❌ Does not enforce read-only in Record Page, API, or Data Loader.
+
+🔹 6️⃣ Apex Trigger (addError)
+✅ Best for: Enforcing field read-only at the database level (before insert/update).
+✅ How to Set:
+
+apex
+Copy
+trigger AccountTrigger on Account (before update) {
+    for (Account acc : Trigger.new) {
+        Account oldAcc = Trigger.oldMap.get(acc.Id);
+        if (oldAcc.Custom_Field__c != acc.Custom_Field__c) {
+            acc.addError('This field is read-only!');
+        }
+    }
+}
+🚀 Impact:
+✅ Works for API, UI, Data Loader, and Automation.
+✅ Cannot be bypassed (unless disabled in code).
+❌ Requires Apex knowledge.
+
+📌 Summary: Choosing the Right Method
+Method	Enforced in UI?	Enforced in API/Data Loader?	Conditional Logic?	Easy to Implement?
+Field-Level Security (FLS)	✅ Yes	✅ Yes	❌ No	✅ Easy
+Page Layout	✅ Yes	❌ No	❌ No	✅ Easy
+Record Type + Layout	✅ Yes	❌ No	✅ Yes	🔸 Medium
+Validation Rule	✅ Yes	✅ Yes	✅ Yes	✅ Easy
+Flow (Screen)	✅ Yes (only in Flow)	❌ No	✅ Yes	✅ Easy
+Apex Trigger (addError)	✅ Yes	✅ Yes	✅ Yes	❌ Requires Coding
+🚀 Best Practice Recommendations
+Use Field-Level Security (FLS) for consistent enforcement across org.
+Use Page Layouts for UI-only enforcement.
+Use Validation Rules for conditional restrictions.
+Use Apex Triggers for strict enforcement.
+Use Flow for a guided process (Screen Flow only).
+
+
+14. What is whoID and whatID 
+==> WhoId and WhatId are polymorphic lookup fields that are commonly used in activities like Tasks and Events. They help associate records with different types of objects.
+
+==> WhoId refers to People (Human records).
+It is used for Contacts or Leads.
+Example: If you schedule a meeting with a Lead or Contact, the WhoId will store the Lead ID or Contact ID
+
+
+==> WhatId refers to Things (Non-human records).
+It is used for Accounts, Opportunities, Cases, Campaigns, or Custom Objects.
+Example: If you log a call related to an Opportunity or Case, the WhatId will store the record ID of that object.
+
+
+
+15. How many ways to create rollup summary field 
+==> Standard Roll-Up Summary Field	✅ Yes	❌ No	❌ No	Simple aggregations
+Apex Trigger	✅ Yes	✅ Yes	✅ Yes	Complex logic
+Process Builder & Flow	✅ Yes	✅ Yes	❌ No	Admin-friendly, no code
+
+
+
+
+
+
+
