@@ -248,7 +248,94 @@ EX:
 
 6. Doesn't provide any Tracking Mechanism.
 
+
+
+1. what is mixed DML Operation?
+==> A Mixed DML Operation error occurs when you try to perform DML (Data Manipulation Language) operations 
+	on setup (configuration) and non-setup (standard/custom) objects in the same transaction.
+	
+	Setup Object ==> User, Profile, BussinessProcess, CustomField, CustomeObject.
+	No-Setup Object ==> Account,Contact,Lead,Opportunity,Hiring_Manager__c, Position__c,Customer__c,Branch_c,
+
+
+2. Difference between Method overloading and overriding?
+==> Method Overloading
+		==> Defining multiple methods with the same name but different parameters in the same class.
+
+==> Method Overriding		
+		==> Redefining a method in a child class that is already defined in the parent class.
 		
+EX: // Example of Method Overloading
+
+	public class OverloadingExample {
+		public void showMessage(String msg) {
+			System.debug('Message: ' + msg);
+		}
+		public void showMessage(String msg, Integer count) {
+			for (Integer i = 0; i < count; i++) {
+				System.debug('Message: ' + msg);
+			}
+		}
+	}
+ 
+EX: // Example of Method Overriding
+	
+	public class ParentClass {
+		public virtual void display() {
+			System.debug('This is ParentClass');
+		}
+	}
+
+	public class ChildClass extends ParentClass {
+		@Override
+		public void display() {
+			System.debug('This is ChildClass');
+		}
+	}
+
+
+3. What is the maximum depth reach in Salesforce?
+==> In Salesforce, Maximum Depth Reach refers to the limit on the recursive execution of triggers, workflow rules, process builder, and flows.
+==> Salesforce prevents infinite loops by limiting the number of recursive calls in a trigger.
+==> The maximum depth a trigger can recursively call itself is 16 times.
+
+4. How to manage recursive?
+==> We can manage recursive using Set, Map and Boolean. but boolean is used for a maximum of 200 records.
+
+5. How many records are executed in a single time?
+==> 200
+
+
+6. Why use global in batch class?
+==> In Salesforce, the global access modifier is required in batch classes because batch jobs can be called from different namespaces. 
+	If a batch class is only public, it cannot be accessed from outside the current namespace, 
+	which is essential for managed packages or when executing the batch job from external contexts like REST API calls.
+
+
+7. why use Database.Batchable ?
+==> In Salesforce, Database.Batchable is an interface that allows you to process large amounts of records asynchronously in smaller chunks (batches). 
+==> This is essential when dealing with governor limits, as normal DML operations can only process a limited number of records at once.
+
+8. When batch size is zero or negative then what happens?
+==> System.InvalidParameterValueException: batchSize must be greater than or equal to one.
+
+
+9. What is purpose of Statefull?
+==> When you need to maintain state (e.g., counters, lists, maps) across batches
+==> When aggregating data (e.g., calculating totals, averages, or summaries)
+==> When storing processed records in a list for use in finish method
+
+10. Whats the logic you put in finsh method?
+==> Sending an Email Notification
+==> Performing Additional DML Operations
+==> Calling Another Batch Job (Chaining Batches)
+==> Handling Aggregated Results 
+
+11. Select id,name from account where name = 'abc'. In my account object there are no any record which have nmae ='abc'.then waht happen?
+==> It will run only start and finish method.
+
+12. 
+
 		
 		 
 			
