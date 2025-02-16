@@ -61,6 +61,8 @@
 ==> @Wire decorator that will be used to call apex method and with
 	the help of those apex method we can retrive the data and we 
 	can show the data on the LWC component
+==> Wire methos is immutabe in nature. so you can't change record.
+==> To use AuraEnabled( cacheable = true)
 
 ==================================================================================================
 	
@@ -141,20 +143,111 @@
 
 
 		
-			
+
+====================================================================================================================================================
+1. What is difference between let and var?
+==> Both let and var are used for declaring variables, but they have key differences in scope, hoisting, and redeclaration.
+==> var is accessible outside the block, but let is not.
+
+	function test() {
+		if (true) {
+			var x = 10; // Function-scoped
+			let y = 20; // Block-scoped
+		}
+		console.log(x); // ✅ Works (x is accessible outside the if block)
+		console.log(y); // ❌ Error (y is only accessible inside the if block)
+	}
 		
 		
+==> var can be redeclared in the same scope.
+==> let cannot be redeclared in the same scope.
+
+	var a = 10;
+	var a = 20; // ✅ No error
+
+	let b = 30;
+	let b = 40; // ❌ Error: Identifier 'b' has already been declared
 		
 		
+
+=============================================================================================================================================
+1.Can we call the apex class from constructor of the lWC.
+==> We can call the apex from the constructor. 
+==> We can call the apex from the Wire method. 
+==> We can call the apex from connected call back. 
+==> We can call apex from the render call back.
+
+
+2. If we can call apex from the wire and constructor. which one can call first?
+==> Constructor (constructor()) → Runs first when the component is initialized.
+==> @wire Method → Runs after the component is connected to the DOM.
+==> connectedCallback() → Runs after the constructor, before rendering.
+
+3. how do you communicate between two unrelated component?
+==> There are two approches. one is pubsub and another is LMS(Lightning message service)
+
+4. You have data table. picklist and lookup field there. what is your approach.
+==> for lookup we can use "lightning record picker".
+==> for picklist we can use combobox.
+
+5. To restrict an LWC component so that it only appears on the Account record detail page and not on the Contact or other record pages.
+==> you need to configure its meta.xml file.
+
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata"
+    fqn="MyAccountComponent">
+    <apiVersion>59.0</apiVersion> 
+    <isExposed>true</isExposed> 
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <objects>
+                <object>Account</object> 
+            </objects>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>
+
+
+==> <target>lightning__RecordPage</target> → Makes it available only on record pages.
+==> <object>Account</object> → Restricts it only to the Account record page. 
+
+
+6. what is set timeout in lwc?(LWC disconnected callback)
+==> In Lightning Web Components (LWC), setTimeout is a JavaScript function used to execute a piece of code after a specified delay (in milliseconds). It is commonly used for:
+==> Delaying execution
+==> Running code asynchronously
+==> Improving performance by deferring non-critical operations
+
+7. isExpose = true. if any one update from true to false. what will happens.
+==> Are you deloyee the component or not. if you deployed then no issue. but you did not deloyee it then it will not show.
+
+
+8. When does the error callback executed and what benefit to use error callback?
+==> The error callback in LWC executes when there is an error or exception in a component during:
+	==> Rendering (render())
+	==> Lifecycle hooks (connectedCallback, renderedCallback, etc.)
+	==> Event handling (@wire, Apex calls, async functions, etc.)
 	
 	
+	Benefits of Using errorCallback
+		==>	Better Debugging → Catches errors and logs them for debugging.
+		==>	Prevents Component Failure → Stops components from breaking the entire page.
+		==>	Handles Child Component Errors → Allows parent components to catch child errors.
+		==>	Custom Error Messages → Can show user-friendly error messages instead of system errors.
+	
+9. When Track Decorator use?
+==> For Nested Objects & Arrays (Deep Property Changes Not Detected Automatically)
+==> For Performance Optimization in Complex Components
+==> When UI Does Not Auto-Update on Object Property Change
 	
 	
-	
-	
-	
-	
-	
+10. 
+
+
+
 #. Pubs subs (Lightning message Service)
 	
 
