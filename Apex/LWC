@@ -244,7 +244,132 @@
 ==> When UI Does Not Auto-Update on Object Property Change
 	
 	
-10. 
+1. What is difference between LWC and AURA Component?
+==> LWC Fatser --> Optimize for browser execution
+==> Uses Standard Web technology
+==> Better for modern Developement --> Support ES6+, Shadow DOM and Web Standard.
+==> Better Reusability --> LWC can be used inside AURA, but Aura can't be used inside LWC.
+
+
+2. What is decorator?
+==> Decorator are a special javascript anotations used to enhance the behavior and function in a class.
+==> They are manage reactivity,data binding, and communication between components.
+==> There are three types of decorator
+	
+	1. @track Decorator:
+		==> The @API decorator in salesforce is used to expose a proprty or method in a child component making it accessible to the parent component.
+		==> Used to Parent-to-child component.
+		==> Allow public properties in a child Component.
+		==> Support primitive values, objects, and arrays.
+		==> @API decorator will be used to make these properties and function
+			publicly available between component.
+			
+		EX:
+		ChildComponent:
+		---------------
+		import {LightningElement, api} from 'LWC';
+		export default class ChildComponent extends LightningElement {
+			@api message;
+		}
+		
+		HTML:
+		<template>{message}</template>
+		
+		ParentComponent:
+		----------------
+		import {'LightningElement,api} from 'LWC';
+		export default class ParentComponent extends LightningElement{
+		}
+		
+		HTML:
+		<Template><c-child-component={Hello, I am Parent Class}><c-child-component></Template>
+	
+	2. @track Decorator:
+		==>  @Track decorator that will be making the property and the methods 
+			as a private and property that can only be access within the 
+			component only and can't be used outside the component.
+		
+	3. Wire Decorator:
+		==> The @wire decorator in LWC is usd to fetch data from APEX methods,Salesforce UI API(getRecord,getListUi,getObjectInfo) , or other adapters.
+		==> It automatically retrieve data and reactively updates the component whenever the data changes.
+	
+		EX:
+			
+		public with sahring class AccountController{
+			@AuraEnabled(cacheable = true)
+			public static List<Account> getAllAccountRecord(){
+				return [Select id,Name Phone,industry from Account LIMIT 10];
+			}
+		}	
+			
+		LWC:
+
+		import {LightningElement,wire} from 'LWC';
+		import getAllAccountRecord from '@salesforce/apex/AccountController.getAllAccountRecord';
+		COLUMNS [{label:'Account Name',fieldName:'Name',type:'text'},
+				 {label:'Phone',fieldName:'Phone',type:'phone'},
+				 {lable:'Industry',fieldName:'Industry',type:'text'}];
+
+		export default class AccountDataTable extends LightningElement{
+		  @Track account = [];
+		  columns = COLUMNS;
+		  @wire(getAllAccountRecord) 
+		  account({error,data}){
+			if(data){
+				this.account = data;
+			}else if(error){
+			 // Showing error;
+			}
+		  }
+		}		 
+			
+			
+		HTML:
+		-----
+		<template>
+			<Lightning-datatable
+			key-field = "id"
+			data = {account}
+			columns = {columns}
+			hide-checkbox-column = "true"
+			></lightning-datatable>
+		</template?
+			
+
+3. What is LDS?
+==> Lighntning Data Service(LDS) is a standardized way to work with salesforce records in LWC and Aura. 
+==> It eliminates the need for writing apex methods to fetch,create,update or delte records.
+
+EX:
+---
+	import {LightningElement} from 'WLC';
+	import {getRecord} from 'lightning/uiRecordApi';
+	import ACCOUNT_NAME from '@Salesforce/Schema/Account.Name';
+	import ACCOUNT_PHONE from '@Salesforce/Schema/Account.phone';
+	
+	export default class LDSComponent extends Lighntning{
+		recordId = '00012344354dfr';
+		accountData;
+		@wire(getRecord,{recordId:'$recordId',fields:[ACCOUNT_NAME,ACCOUNT_PHONE]})
+		wireAccount({error,data}){
+			if(data){
+				accountData = data.fields;
+			}
+			else if(error){}
+		}
+	}
+	
+	<template>
+		<template if:true={accountData}>
+			<p><b>Account Name : {accountData.Name} </b></p>
+			<p><b>Account Phone : {accountData.Phone}</b></p>
+	</template>
+	
+	
+9. When Track Decorator use?
+==> For Nested Objects & Arrays (Deep Property Changes Not Detected Automatically)
+==> For Performance Optimization in Complex Components
+==> When UI Does Not Auto-Update on Object Property Change
 
 
 
