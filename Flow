@@ -1,0 +1,43 @@
+1. Can we write a single flow for insert,update and delete case?
+==> No, a Single Flow Cannot Handle All Three (Insert, Update, and Delete) Operations Directly.
+
+2. What kind of flow we have?
+==> There are six flow.
+1. Screen Flow.
+2. Schedule Flow
+3. Record Trigger Flow
+4. Autolaunched Flow
+5. Platform Event Flow
+
+
+
+3. What is difference between Flow and process builder?
+==> Can be triggered by record changes, schedules, platform events, or manually
+==> Supports screens for user input
+==> Loops & Collections	Supports loops and bulk processing
+==> Can send HTTP callouts to external systems
+==> Can update multiple records efficiently	Updates  
+==> Provides debug mode, detailed logs, and fault paths
+
+
+==> Can be triggered only by record changes or platform events
+==> No UI, only background automation
+==> No support for loops
+==> Cannot make HTTP callouts
+==> one record at a time
+==> Limited error handling options
+
+
+
+4. Can we call future in flow?
+==> No, Because when you want to call a anything from call then we shoud use @InvocableMethod.
+   In future method we can't used @InvocableMethod because already used @Future method.
+   
+  
+5. Why we used List of Id in InvocableMethod?
+==> Because we should always used bulkify data.
+
+
+
+
+	
