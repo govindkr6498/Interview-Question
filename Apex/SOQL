@@ -89,6 +89,7 @@ NOTE : This query fetches unique account names.
 ==> SELECT AccountId, COUNT(Id) FROM Contact GROUP BY AccountId HAVING COUNT(Id) > 5
 
 
-
+#. I want to access all account records in all fields.
+==> SELECT FIELDS(ALL) FROM Account LIMIT 5
 
 
