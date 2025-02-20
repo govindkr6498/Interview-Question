@@ -250,291 +250,50 @@ Example:
 ==> Yes! You can call a Lightning Web Component (LWC) from a Flow using a Screen Flow
 
 
-31. . In real real-time scenario when you decide to use a trigger whether flow?
-==> Admin-Friendly: No coding required, easy to modify.
-✅ Simple Record Automation: Updating related records, sending emails, or making field updates.
-✅ Before-Save Updates: For better performance (Before-Save Flows are 10x faster than triggers).
-✅ Declarative Solution Preferred: When Apex is not necessary.
-✅ Bulk Data Handling is NOT Critical: Standard Flow behavior may hit limits for large datasets.
+31. In real real-time scenario when you decide to use a trigger whether flow?
+==> Simple Record Automation: Updating related records, sending emails, or making field updates.
+==> Before-Save Flows are 10x faster than triggers.
+==> Use Flow for simple automation (e.g., field updates, email alerts).
+
+==> Complex Business Logic: If-else conditions, loops, multiple record updates.
+==> Bulk Processing Required: Handles large data volumes more efficiently.
+==> Integration with External APIs: Callouts, external system interactions.
+==> Handling Recursive Operations: Prevent infinite loops when records update each other.
+==> Multiple Related Object Updates: If multiple objects need updates in one transaction.
 
 
-==>Complex Business Logic: If-else conditions, loops, multiple record updates.
-✅ Bulk Processing Required: Handles large data volumes more efficiently.
-✅ Integration with External APIs: Callouts, external system interactions.
-✅ Handling Recursive Operations: Prevent infinite loops when records update each other.
-✅ Multiple Related Object Updates: If multiple objects need updates in one transaction.
+32. How to decide to use before save and after save flow?
+==> Before Save:
+	1. When you only need to update fields on the same record 
+	2. Executes before the record is saved to the database
+
+==> After Save
+	1. Use when you need to update related records or send email notifications.
+	2. Executes after the record is saved to the database (like after insert & after update in Apex Trigger).
+	3. Supports DML operations (Insert, Update, Delete, Callouts, Email Actions, etc.).
+	4. Sending an email notification after a record is created.
+	5. Deleting a record
+	6. Custom Roll-Up Summary
 
 
-10. How to decide to use before save and after save flow? and how do you differentiate whether to use flow to trigger?
-==> 
-==> Salesforce offers two types of record-triggered flows:
-1️⃣ Before-Save Flow (Fast Field Updates)
-2️⃣ After-Save Flow (Actions and Related Records)
-
-Choosing between them depends on whether you need to update the same record or perform actions on related records.
-
-✅ When to Use Before-Save Flow?
-🔥 For Fast Field Updates (Performance Optimized, 10x Faster than Triggers)
-
-✅ Use when you only need to update fields on the same record (without DML operations).
-✅ Executes before the record is saved to the database (like before insert & before update in Apex Trigger).
-✅ No need for an additional DML statement (Update).
-
-🔹 Example Use Cases for Before-Save Flow:
-
-Auto-populating a "Status" field based on conditions.
-Automatically setting the Owner field when a record is created.
-Updating a calculated field without using a formula field.
-📌 Example:
-👉 If an Opportunity’s Amount > 100,000, automatically set Priority to “High.”
-✅ Best to use Before-Save Flow because it updates the same record.
-
-✅ When to Use After-Save Flow?
-🔥 For Creating/Updating Related Records & Complex Automation
-
-✅ Use when you need to update related records or send email notifications.
-✅ Executes after the record is saved to the database (like after insert & after update in Apex Trigger).
-✅ Supports DML operations (Insert, Update, Delete, Callouts, Email Actions, etc.).
-
-🔹 Example Use Cases for After-Save Flow:
-
-Creating a child record (e.g., when an Account is created, create a Contact).
-Sending an email notification after a record is created.
-Updating related records (e.g., updating all Contacts when an Account's status changes).
-📌 Example:
-👉 If an Account is created, automatically create a default Contact.
-✅ Best to use After-Save Flow because it inserts a new related record.
-
-🚀 Before-Save vs. After-Save Flow: Decision Table
-Scenario	Use Before-Save Flow?	Use After-Save Flow?
-Updating a field on the same record	✅ Yes	❌ No
-Updating related records	❌ No	✅ Yes
-Sending email notifications	❌ No	✅ Yes
-Calling external systems (API Callout)	❌ No	✅ Yes
-Creating a related record	❌ No	✅ Yes
-Deleting a record	❌ No	✅ Yes
-Executing complex logic (multiple operations)	❌ No	✅ Yes
-📌 How to Decide Between Flow and Trigger?
-Feature	Flow	Apex Trigger
-Ease of Use	✅ No Code Needed	❌ Requires Apex Code
-Performance	✅ Before-Save Flow is Fast	❌ Can be slower due to SOQL & DML
-Updating Same Record	✅ Before-Save Flow	✅ Before Trigger
-Updating Related Records	✅ After-Save Flow	✅ After Trigger
-Bulk Processing (Handling 200+ Records)	❌ Limited	✅ Optimized for Bulk
-Complex Business Logic (Loops, Recursion, Callouts)	❌ Limited	✅ Supports Complex Logic
-Before Delete Logic	❌ Not Supported	✅ Trigger Required
-API Callout (REST/SOAP)	❌ No	✅ Yes
-Custom Roll-Up Summary	❌ No	✅ Yes
-🚀 Best Practices for Flow vs. Trigger
-Use Flow for simple automation (e.g., field updates, email alerts).
-Use Trigger for bulk processing, complex logic, and callouts.
-Use Before-Save Flow for same-record updates (faster than triggers).
-Use After-Save Flow for actions on related records.
-Avoid using Flow & Trigger together on the same object to prevent conflicts.
-
-
-
-12. How Many Ways Can We Make a Field Required in Salesforce?
+33. How Many Ways Can We Make a Field Required in Salesforce?
 ==> Salesforce provides multiple ways to make a field mandatory/required based on different scenarios. Below are six ways to enforce field requirements:
+	1. At the Object Level (Field Properties)
+	2. Using Page Layouts
+	3. Using Validation Rules
+	4. Using Flow (Screen Component)
+	5. Using Record Types & Page Layouts
+	6. Using Apex Trigger (addError)
 
-🔹 1️⃣ At the Object Level (Field Properties)
-✅ Best for: Making the field required across all layouts, API, and automation.
-✅ How to Set:
+34. In how many cases we can make a field read-only?
+==> Field-Level Security (FLS)
+==> Page Layout
+==> Record Type + Page Layouts
+==> Validation Rule
+==> Using Flow (Screen Component)
+==> Apex Trigger.
 
-Go to Setup → Object Manager → Select Object → Fields & Relationships.
-Click the field → Check “Required”.
-Save the changes.
-🚀 Impact:
-✅ The field is required everywhere (Page Layout, API, Flow, Triggers).
-❌ Cannot be bypassed by automation (Trigger, API, Data Loader).
-
-🔹 2️⃣ Using Page Layouts
-✅ Best for: Making a field required only on UI (not API or automation).
-✅ How to Set:
-
-Go to Setup → Object Manager → Select Object → Page Layouts.
-Select the Layout → Click on the wrench (🔧) icon on the field.
-Check “Required” and Save.
-🚀 Impact:
-✅ Field is required only when editing via the UI (Record Page).
-❌ Not enforced in API, Flow, Apex, or Data Loader.
-
-🔹 3️⃣ Using Validation Rules
-✅ Best for: Making a field required conditionally (based on other field values).
-✅ How to Set:
-
-Go to Setup → Object Manager → Validation Rules.
-Click New → Define rule logic.
-Example:
-plaintext
-Copy
-ISBLANK(Account_Number__c)
-Add an Error Message (e.g., "Account Number is required").
-🚀 Impact:
-✅ Can apply conditional logic (e.g., field required only for specific record types).
-✅ Works in UI, API, Flow, and Triggers.
-❌ Can be bypassed by Apex Trigger (addError can override it).
-
-🔹 4️⃣ Using Record Types & Page Layouts
-✅ Best for: Making a field required only for specific Record Types.
-✅ How to Set:
-
-Create different Record Types for the object.
-Assign different Page Layouts for each Record Type.
-In some layouts, mark the field as required.
-🚀 Impact:
-✅ The field is required only for specific Record Types.
-✅ Does not affect API or automation.
-❌ If multiple layouts exist, it can become complex to manage.
-
-🔹 5️⃣ Using Flow (Screen Component)
-✅ Best for: Making a field required in a Screen Flow form.
-✅ How to Set:
-
-In Flow Builder, add a Screen Component.
-Drag the input field → Check “Required”.
-🚀 Impact:
-✅ Field is required only when using the Flow UI.
-❌ Does not enforce the requirement outside the Flow.
-
-🔹 6️⃣ Using Apex Trigger (addError)
-✅ Best for: Enforcing field requirements at the database level (before insert/update).
-✅ How to Set:
-
-apex
-Copy
-trigger AccountTrigger on Account (before insert, before update) {
-    for (Account acc : Trigger.new) {
-        if (String.isBlank(acc.AccountNumber)) {
-            acc.addError('Account Number is required!');
-        }
-    }
-}
-🚀 Impact:
-✅ Works for API, UI, Data Loader, and Automation.
-✅ Cannot be bypassed (unless disabled in code).
-❌ Requires Apex knowledge.
-
-📌 Summary: Choosing the Right Method
-Method	Enforced in UI?	Enforced in API/Data Loader?	Conditional Logic?	Easy to Implement?
-Field-Level Required	✅ Yes	✅ Yes	❌ No	✅ Easy
-Page Layout	✅ Yes	❌ No	❌ No	✅ Easy
-Validation Rule	✅ Yes	✅ Yes	✅ Yes	✅ Easy
-Record Type + Layout	✅ Yes	❌ No	✅ Yes	🔸 Medium
-Flow (Screen)	✅ Yes (only in Flow)	❌ No	✅ Yes	✅ Easy
-Apex Trigger (addError)	✅ Yes	✅ Yes	✅ Yes	❌ Requires Coding
-🚀 Best Practice Recommendations
-Use Field-Level Requirement for consistent enforcement.
-Use Validation Rules for conditional requirements.
-Use Apex Triggers if working with complex business logic.
-Use Page Layouts for UI-only enforcement.
-Use Flow for a guided process (Screen Flow only).
-Would you like examples for specific use cases? 😊
-
-
-
-
-13. In how many cases we can make a field read only ?
-ChatGPT said:
-📌 How Many Ways Can We Make a Field Read-Only in Salesforce?
-Salesforce provides multiple ways to make a field read-only based on different scenarios. Below are six methods to enforce a field as read-only:
-
-🔹 1️⃣ Field-Level Security (FLS)
-✅ Best for: Making a field read-only for specific profiles across the entire system.
-✅ How to Set:
-
-Setup → Object Manager → Select Object → Fields & Relationships.
-Click on the field → Click Set Field-Level Security.
-Uncheck "Visible" and Check "Read-Only" for the profiles you want.
-Save the changes.
-🚀 Impact:
-✅ The field is always read-only in UI, API, Reports, and Automation.
-❌ Cannot be overridden in Page Layouts or Record Types.
-
-🔹 2️⃣ Page Layout
-✅ Best for: Making a field read-only only on specific Page Layouts.
-✅ How to Set:
-
-Setup → Object Manager → Select Object → Page Layouts.
-Select a Page Layout.
-Click the wrench (🔧) icon on the field.
-Check “Read-Only” and Save.
-🚀 Impact:
-✅ The field is read-only in UI, but editable via API, Flow, and Apex.
-❌ Users can still edit via Data Loader, API, Flow, and Triggers.
-
-🔹 3️⃣ Record Type + Page Layouts
-✅ Best for: Making a field read-only only for specific Record Types.
-✅ How to Set:
-
-Create different Record Types for the object.
-Assign different Page Layouts for each Record Type.
-In some layouts, mark the field as read-only.
-🚀 Impact:
-✅ The field is read-only only for certain Record Types.
-✅ Does not affect API or automation.
-❌ If multiple layouts exist, it can become complex to manage.
-
-🔹 4️⃣ Validation Rule
-✅ Best for: Making a field conditionally read-only (e.g., based on Profile, Status, or another field).
-✅ How to Set:
-
-Setup → Object Manager → Validation Rules.
-Click New → Define rule logic.
-Example: If the Account is Approved, make the field read-only:
-plaintext
-Copy
-ISPICKVAL(Status__c, 'Approved') && NOT(ISBLANK(My_Field__c))
-Add an Error Message (e.g., "This field is read-only once the record is approved").
-🚀 Impact:
-✅ Works in UI, API, Flow, and Triggers.
-✅ Can apply conditional logic (e.g., field read-only only if Status = ‘Approved’).
-❌ Error message appears only when a user tries to edit & save the record.
-
-🔹 5️⃣ Using Flow (Screen Component)
-✅ Best for: Making a field read-only in Screen Flow UI forms.
-✅ How to Set:
-
-In Flow Builder, add a Screen Component.
-Drag the input field → Change its property to Read-Only.
-🚀 Impact:
-✅ Field is read-only only in Flow UI.
-❌ Does not enforce read-only in Record Page, API, or Data Loader.
-
-🔹 6️⃣ Apex Trigger (addError)
-✅ Best for: Enforcing field read-only at the database level (before insert/update).
-✅ How to Set:
-
-trigger AccountTrigger on Account (before update) {
-    for (Account acc : Trigger.new) {
-        Account oldAcc = Trigger.oldMap.get(acc.Id);
-        if (oldAcc.Custom_Field__c != acc.Custom_Field__c) {
-            acc.addError('This field is read-only!');
-        }
-    }
-}
-🚀 Impact:
-✅ Works for API, UI, Data Loader, and Automation.
-✅ Cannot be bypassed (unless disabled in code).
-❌ Requires Apex knowledge.
-
-📌 Summary: Choosing the Right Method
-Method	Enforced in UI?	Enforced in API/Data Loader?	Conditional Logic?	Easy to Implement?
-Field-Level Security (FLS)	✅ Yes	✅ Yes	❌ No	✅ Easy
-Page Layout	✅ Yes	❌ No	❌ No	✅ Easy
-Record Type + Layout	✅ Yes	❌ No	✅ Yes	🔸 Medium
-Validation Rule	✅ Yes	✅ Yes	✅ Yes	✅ Easy
-Flow (Screen)	✅ Yes (only in Flow)	❌ No	✅ Yes	✅ Easy
-Apex Trigger (addError)	✅ Yes	✅ Yes	✅ Yes	❌ Requires Coding
-🚀 Best Practice Recommendations
-Use Field-Level Security (FLS) for consistent enforcement across org.
-Use Page Layouts for UI-only enforcement.
-Use Validation Rules for conditional restrictions.
-Use Apex Triggers for strict enforcement.
-Use Flow for a guided process (Screen Flow only).
-
-
-14. What is whoID and whatID 
+35. What is whoID and whatID? 
 ==> WhoId and WhatId are polymorphic lookup fields that are commonly used in activities like Tasks and Events. They help associate records with different types of objects.
 
 ==> WhoId refers to People (Human records).
@@ -542,19 +301,19 @@ It is used for Contacts or Leads.
 Example: If you schedule a meeting with a Lead or Contact, the WhoId will store the Lead ID or Contact ID
 
 
-14. WhatId refers to Things (Non-human records).
+36. WhatId refers to Things (Non-human records).
 ==> It is used for Accounts, Opportunities, Cases, Campaigns, or Custom Objects.
 Example: If you log a call related to an Opportunity or Case, the WhatId will store the record ID of that object.
 
 
 
-15. How many ways to create a rollup summary field 
+37. How many ways to create a rollup summary field 
 ==> Standard Roll-Up Summary Field.
 ==> Apex Trigger
 ==> Process Builder & Flow
 
 
-1. What is the difference between IsBlank and s Null?
+38. What is the difference between IsBlank and s Null?
 ==> ISBLANK(expression)	Checks if a field is empty or blank	Text, Number, Date, Picklist	Works for both Text and Number fields
 ISNULL(expression)	Checks if a field has a NULL value	Only Number, Date, Checkbox	Does not work for Text fields
 
