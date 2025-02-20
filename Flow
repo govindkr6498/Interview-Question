@@ -1,5 +1,5 @@
 1. Can we write a single flow for insert,update and delete case?
-==> No, a Single Flow Cannot Handle All Three (Insert, Update, and Delete) Operations Directly.
+==> Yes, a Single Flow Can Handle All Three (Insert, Update, and Delete) Operations Directly.
 
 2. What kind of flow we have?
 ==> There are six flow.
