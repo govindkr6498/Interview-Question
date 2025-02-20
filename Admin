@@ -250,7 +250,7 @@ Example:
 ==> Yes! You can call a Lightning Web Component (LWC) from a Flow using a Screen Flow
 
 
-31. . In real time schanario when you decide use trigger wethear flow?
+31. . In real time scenario when you decide to use trigger whether flow?
 ==> Admin-Friendly: No coding required, easy to modify.
 ✅ Simple Record Automation: Updating related records, sending emails, or making field updates.
 ✅ Before-Save Updates: For better performance (Before-Save Flows are 10x faster than triggers).
@@ -333,11 +333,8 @@ Avoid using Flow & Trigger together on the same object to prevent conflicts.
 
 
 
-
-12. In how many ways we can make a field required ?
-ChatGPT said:
-📌 How Many Ways Can We Make a Field Required in Salesforce?
-Salesforce provides multiple ways to make a field mandatory/required based on different scenarios. Below are six ways to enforce field requirements:
+12. How Many Ways Can We Make a Field Required in Salesforce?
+==> Salesforce provides multiple ways to make a field mandatory/required based on different scenarios. Below are six ways to enforce field requirements:
 
 🔹 1️⃣ At the Object Level (Field Properties)
 ✅ Best for: Making the field required across all layouts, API, and automation.
@@ -507,8 +504,6 @@ Drag the input field → Change its property to Read-Only.
 ✅ Best for: Enforcing field read-only at the database level (before insert/update).
 ✅ How to Set:
 
-apex
-Copy
 trigger AccountTrigger on Account (before update) {
     for (Account acc : Trigger.new) {
         Account oldAcc = Trigger.oldMap.get(acc.Id);
@@ -546,19 +541,19 @@ It is used for Contacts or Leads.
 Example: If you schedule a meeting with a Lead or Contact, the WhoId will store the Lead ID or Contact ID
 
 
-==> WhatId refers to Things (Non-human records).
-It is used for Accounts, Opportunities, Cases, Campaigns, or Custom Objects.
+14. WhatId refers to Things (Non-human records).
+==> It is used for Accounts, Opportunities, Cases, Campaigns, or Custom Objects.
 Example: If you log a call related to an Opportunity or Case, the WhatId will store the record ID of that object.
 
 
 
-15. How many ways to create rollup summary field 
-==> Standard Roll-Up Summary Field	✅ Yes	❌ No	❌ No	Simple aggregations
-Apex Trigger	✅ Yes	✅ Yes	✅ Yes	Complex logic
-Process Builder & Flow	✅ Yes	✅ Yes	❌ No	Admin-friendly, no code
+15. How many ways to create a rollup summary field 
+==> Standard Roll-Up Summary Field.
+==> Apex Trigger
+==> Process Builder & Flow
 
 
-1. What is differnece between IsBlank and s Null?
+1. What is the difference between IsBlank and s Null?
 ==> ISBLANK(expression)	Checks if a field is empty or blank	Text, Number, Date, Picklist	Works for both Text and Number fields
 ISNULL(expression)	Checks if a field has a NULL value	Only Number, Date, Checkbox	Does not work for Text fields
 
