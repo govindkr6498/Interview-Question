@@ -38,38 +38,38 @@
 	
 ===========================================================================================	
 	
-#. What is decorator?
-==> Decorator are design pattern that will be adding functionality
+#. What is a decorator?
+==> Decorators are design patterns that will be adding functionality
 	into the properties and function in LWC.
 	
-==> There are three type of Decorator in LWC
+==> There are three types of Decorator in LWC
 	1. track
 	2. Api
 	3. Wire
 ==> @API decorator will be used to make these properties and function
-	publicly available between component.
+	publicly available between components.
 	
 ==> All public properties are reactive. Reactive means the framework
-	observe the property for change.when property change value then
-	the framework reacts and renders the component.
+	observes the property for change.When property change value then
+	The framework reacts and renders the component.
 
 
 ==> @Track decorator that will be making the property and the methods 
-	as a private and property that can only be access within the 
+	as a private and property that can only be accessed within the 
 	component only and can't be used outside the component.
 	
-==> @Wire decorator that will be used to call apex method and with
+==> @Wire decorator that will be used to call the apex method, and with
 	the help of those apex method we can retrive the data and we 
 	can show the data on the LWC component
-==> Wire methos is immutabe in nature. so you can't change record.
+==> Wire methods are immutable. So you can't change the record.
 ==> To use AuraEnabled( cacheable = true)
 
 ==================================================================================================
 	
-#. Explain the life cycle hooks of an LWC component?
+#. Explain the life cycle hooks of an LWC component.
 ==> The lifecycle hooks of an LWC component refer to a series 
 	of methods that are invoked during the time of component 
-	creation , upate, and removal from the DOM.These method provide
+	creation, update, and removal from the DOM. These method provide
 	a way to interact and manipulate the component at different stages
 	of its lifecycle.
 	
@@ -77,30 +77,30 @@
 	#. Creation:
 	1. Constructor():
 		==> This is the first hook to run when an instance of the component
-			is created. It's where you initialize variable and set default values.
+			is created. It's where you initialize variables and set default values.
 		
 		==> Invoked when the instance of the component is created.
-		==> fired in the parent component first since it flow from parent to child.
-		==> you have to call super() inside first to call parent class constructor.
+		==> fired in the parent component first since it flows from parent to child.
+		==> You have to call super() inside first to callthe  parent class constructor.
 	
 	#. Intialization:
 	2. connectedCallBack():
 		==> After the component is initialized, this hook is called.it's an
-			Ideal place for DOM manipulation and data retrieval.
+			It is the ideal place for DOM manipulation and data retrieval.
 			
-		==>Invoke when component inserted into DOM.
+		==>Invoke when component is inserted into DOM.
 		==> it flows Parent to child.
-		==> Used for to perfomr initialisation task such as fetch data, set upate
-			cache, listen events.
-		==> To check component is connected in DOM, use isConnected method.
+		==> Used for to perform initialisation task such as fetching data, set upate
+			cache and listen for events.
+		==> To check if a component is connected in DOM, use the isConnected method.
 
 			
 	#. Rendering:
 	3. renderedCallback():
 		==> Use it to perform logic after a component has finished the rendering
-		    phase. It invoked when a component is completely rendered on UI.
+		    phase. It is invoked when a component is completely rendered on UI.
 		==> Flow from child to parent component.
-		==> Component rendered many times during tehre lifecycle, to track renderedBack(),
+		==> Component rendered many times during the lifecycle, to track renderedBack(),
 			use isRendered boolean field.
 		==> Property leads to infinite loop in renderedCallBack().
 		
@@ -108,7 +108,7 @@
 	#. Reactivity:
 		==> Whenever a property or variable changes in the component, it may
 		trigger a reactivity cycle. During this cycle, the component checks 
-		for changes in properties, and if changes are deacted, it re-renders 
+		for changes in properties, and if changes are detected, it re-renders 
 		and invokes the "renderedCallBack" again.
 		
 	#. Destruction:
@@ -122,9 +122,9 @@
 		 
 	#. Error Handling:
 		5. ErrorCallback()
-		==> If an erro occurs during rendering, this hook is invoked.
-		    it provides an opportunity to fracefully handle error and 
-			display appropriate message.
+		==> If an error occurs during rendering, this hook is invoked.
+		    It provides an opportunity to fracefully handle error and 
+			Display an appropriate message.
 		
 		==> Two argumewnts are passed in errorCallback(error,stack), the error
 			argument is a Javascript native error object, and the stack argument
@@ -133,7 +133,7 @@
 	
 =================================================================================================================================================
 
-#. How to Send data from parent to child in LWC?
+#. How to send data from parent to child in LWC?
 ==> There are 3 ways to do it.
 		1. Public Properties
 		2. Public Function
@@ -145,7 +145,7 @@
 		
 
 ====================================================================================================================================================
-1. What is difference between let and var?
+1. What is the difference between let and var?
 ==> Both let and var are used for declaring variables, but they have key differences in scope, hoisting, and redeclaration.
 ==> var is accessible outside the block, but let is not.
 
@@ -171,11 +171,11 @@
 		
 
 =============================================================================================================================================
-1.Can we call the apex class from constructor of the lWC.
+1. Can we call the apex class fromthe  constructor of the lWC?
 ==> We can call the apex from the constructor. 
 ==> We can call the apex from the Wire method. 
-==> We can call the apex from connected call back. 
-==> We can call apex from the render call back.
+==> We can call the apex from the connected call back. 
+==> We can call apex from the render callback.
 
 
 2. If we can call apex from the wire and constructor. which one can call first?
@@ -183,15 +183,15 @@
 ==> @wire Method → Runs after the component is connected to the DOM.
 ==> connectedCallback() → Runs after the constructor, before rendering.
 
-3. how do you communicate between two unrelated component?
-==> There are two approches. one is pubsub and another is LMS(Lightning message service)
+3. How do you communicate between two unrelated components?
+==> There are two approaches. one is PubSub and another is LMS(Lightning message service)
 
-4. You have data table. picklist and lookup field there. what is your approach.
-==> for lookup we can use "lightning record picker".
-==> for picklist we can use combobox.
+4. You have a data table. picklist and lookup fields. What is your approach?
+==> For lookup, we can use the "lightning record picker".
+==> For picklist, we can use combobox.
 
 5. To restrict an LWC component so that it only appears on the Account record detail page and not on the Contact or other record pages.
-==> you need to configure its meta.xml file.
+==> You need to configure its meta.xml file.
 
 <?xml version="1.0" encoding="UTF-8"?>
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata"
@@ -215,54 +215,54 @@
 ==> <object>Account</object> → Restricts it only to the Account record page. 
 
 
-6. what is set timeout in lwc?(LWC disconnected callback)
+6. What is set timeout in lwc? (LWC disconnected callback)
 ==> In Lightning Web Components (LWC), setTimeout is a JavaScript function used to execute a piece of code after a specified delay (in milliseconds). It is commonly used for:
 ==> Delaying execution
 ==> Running code asynchronously
 ==> Improving performance by deferring non-critical operations
 
-7. isExpose = true. if any one update from true to false. what will happens.
-==> Are you deloyee the component or not. if you deployed then no issue. but you did not deloyee it then it will not show.
+7. isExpose = true. If anyone has an update from true to false. what will happen.
+==> Are you deploying the component or not? If you deployed, then no issue. but you did not deploy it then it will not show.
 
 
-8. When does the error callback executed and what benefit to use error callback?
+8. When is the error callback executed, and what benefit to using an error callback?
 ==> The error callback in LWC executes when there is an error or exception in a component during:
 	==> Rendering (render())
 	==> Lifecycle hooks (connectedCallback, renderedCallback, etc.)
 	==> Event handling (@wire, Apex calls, async functions, etc.)
 	
 	
-	Benefits of Using errorCallback
+	Benefits of Using ErrorCallback
 		==>	Better Debugging → Catches errors and logs them for debugging.
 		==>	Prevents Component Failure → Stops components from breaking the entire page.
 		==>	Handles Child Component Errors → Allows parent components to catch child errors.
 		==>	Custom Error Messages → Can show user-friendly error messages instead of system errors.
 	
-9. When Track Decorator use?
+9. When is Track Decorator used?
 ==> For Nested Objects & Arrays (Deep Property Changes Not Detected Automatically)
 ==> For Performance Optimization in Complex Components
 ==> When UI Does Not Auto-Update on Object Property Change
 	
 	
-1. What is difference between LWC and AURA Component?
+1. What isthe  difference between LWC and AURA components?
 ==> LWC Fatser --> Optimize for browser execution
 ==> Uses Standard Web technology
 ==> Better for modern Developement --> Support ES6+, Shadow DOM and Web Standard.
 ==> Better Reusability --> LWC can be used inside AURA, but Aura can't be used inside LWC.
 
 
-2. What is decorator?
-==> Decorator are a special javascript anotations used to enhance the behavior and function in a class.
-==> They are manage reactivity,data binding, and communication between components.
+2. What is a decorator?
+==> Decorators are a special javascript annotation used to enhance the behavior and function in a class.
+==> They manage reactivity, data binding, and communication between components.
 ==> There are three types of decorator
 	
-	1. @track Decorator:
-		==> The @API decorator in salesforce is used to expose a proprty or method in a child component making it accessible to the parent component.
+	1. @api Decorator:
+		==> The @API decorator in Salesforce is used to expose a property or method in a child component, making it accessible to the parent component.
 		==> Used to Parent-to-child component.
 		==> Allow public properties in a child Component.
-		==> Support primitive values, objects, and arrays.
+		==> Supports primitive values, objects, and arrays.
 		==> @API decorator will be used to make these properties and function
-			publicly available between component.
+			publicly available between components.
 			
 		EX:
 		ChildComponent:
@@ -286,19 +286,19 @@
 	
 	2. @track Decorator:
 		==>  @Track decorator that will be making the property and the methods 
-			as a private and property that can only be access within the 
+			as a private and property that can only be accessed within the 
 			component only and can't be used outside the component.
 		
 	3. Wire Decorator:
-		==> The @wire decorator in LWC is usd to fetch data from APEX methods,Salesforce UI API(getRecord,getListUi,getObjectInfo) , or other adapters.
-		==> It automatically retrieve data and reactively updates the component whenever the data changes.
+		==> The @wire decorator in LWC is used to fetch data from APEX methods, Salesforce UI API(getRecord,getListUi,getObjectInfo) , or other adapters.
+		==> It automatically retrieves data and reactively updates the component whenever the data changes.
 	
 		EX:
 			
-		public with sahring class AccountController{
+		public with sharing class AccountController{
 			@AuraEnabled(cacheable = true)
 			public static List<Account> getAllAccountRecord(){
-				return [Select id,Name Phone,industry from Account LIMIT 10];
+				return [Select id,Name Phone, industry from Account LIMIT 10];
 			}
 		}	
 			
