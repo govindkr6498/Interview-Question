@@ -39,74 +39,74 @@ Ans:
 		
 	2. NullPointerException:
 		a. A line of code that is trying to use an object that has not been 
-		   instantaited, or an object's attributes that has not began initialized.
+		   instantiated, or an object's attributes that have not begun initialized.
 		
 	3. QueryException :
 		a. Any problem with Soql queries, such as assigning a query that return
      	   no records or more than one record to a singleton sObject variable.
 		
 	4. Limit Exception:
-		a. In salesforce we can encounter the salesforce Governor Limits. 
-		   A governor limit has been exceedeed.This exception can't be caught. 
-		   This is a hard limit, means you can't increased it by contacting salesforce support.
+		a. In Salesforce, we can encounter the salesforce Governor Limits. 
+		   A governor limit has been exceeded. This exception can't be caught. 
+		   This is a hard limit, which means you can't increase it by contacting Salesforce support.
 		   
 		   
 		  
-7. What are the types of Collection in salesforce and when to use which type of collection?
+7. What are the types of collections in Salesforce, and when to use which type of collection?
 Ans:
 	1. List ==> A List is an ordered collection of elements.
-			==> List are beneficial when preserving the data order or accessing 
+			==> Lists are beneficial when preserving the data order or accessing 
 				elements based on their position is necessary.
 				
-	2. Set ==> Sets are unordered collection that store only unique elements.
-		   ==> Sets are useful whenyou need to ensure that your data is distinct 
+	2. Set ==> Sets are unordered collections that store only unique elements.
+		   ==> Sets are useful when you need to ensure that your data is distinct 
 			   and when you don't need to maintain order.
 			   
-	3. Map ==> A Map id a collection of key-value pairs.It's like a dictionary -each word(key) has a corresponding definition(value)
+	3. Map ==> A Map is a collection of key-value pairs. It's like a dictionary -each word(key) has a corresponding definition(value)
 		   ==> When you need to seek values based on their associated keys, maps come in handy.
 		   
 		   
-8. What is a wrapper class in salesforce?
+8. What is a wrapper class in Salesforce?
 Ans: 	
-	==> As the name suggests a wrapper class in salesforce allows 
+	==> As the name suggests, a wrapper class in Salesforce allows 
 	   developer to combine different data types and use them for specific purposes.
 	   
 	  
-9. What is SOQL and SOSL. What are the differences between SOQL and SOSL?
+9. What is SOQL and SOSL? What are the differences between SOQL and SOSL?
 Ans:
 	1. SOQL(Salesforce Object Query Language)
 		==> SOQL is a Salesforce Object Query Language, retrieves the records from the database by using SELECT keyword.
-		==> SOQL is sued if we knowin which object the data type is present.
-		==> In SOQL we can query data from single object and as well as multiple objects that are related to each other.
-		==> We can query on all fields of any database.
+		==> SOQL is sued if we know in which object the data type is present.
+		==> In SOQL, we can query data from single object as well as multiple objects that are related to each other.
+		==> We can query all fields of any database.
 		==> We can use SOQL in Triggers and class.
-		==> We can perform DML Operation on query result.
+		==> We can perform a DML Operation on a query result.
 	
 	2. SOSL(Salesforce Object Search Language)
-		==> SOSL is a Salesforce Object Search Language, retrieve the records from the database by using the FIND keyword.
+		==> SOSL is a Salesforce Object Search Language; retrieve the records from the database by using the FIND keyword.
 		==> SOSL is used if we don't know in which object the data is present.
-		==> We can retrieve multiple objects and fields values effeciently when the objects may or may not be related to each other.
-		==> We can use in class but not in trigger.
-		==> We cannot perform DML operation on search result.
+		==> We can retrieve multiple objects and field values efficiently when the objects may or may not be related to each other.
+		==> We can use it in class but not in trigger.
+		==> We cannot perform a DML operation on the search result.
 		
 	
-10. What is order of Execution in salesforce?
+10. What is the order of Execution in Salesforce?
 Ans:
-	==> A set of rules that describe the Path, a records takes through all 
+	==> A set of rules that describe the Path a record takes through all 
 	    automatic and the events that happen from SAVE to COMIIT.
 	
-	1. Load The original Record from Database/intialize for UPSERT.
-	2. older Values are overwritten
+	1. Load the original Record from the Database/initialise for UPSERT.
+	2. Older values are overwritten
 	3. System Validation Rules.
 	4. APEX Before Trigger.
 	5. Custome Validation Rules.
-	6. Record Saved to database not committed.
+	6. The record saved to the database is not committed.
 	7. APEX after trigger.
 	8. Assignment Rules.
 	9. Auto Response Rules.
 	10. Workflow Rule.
 	11. Escalation Rules.
 	12. Rollup Summary formule Updates.
-	13. Execute Criteria Based Sharing
+	13. Execute Criteria-Based Sharing
 	14. Database committed.
 	15. Post Comit Logic.
