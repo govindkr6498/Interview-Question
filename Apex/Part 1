@@ -1,5 +1,5 @@
 1. Best Practice and consideration for trigger?
-Ans : a. One trigger per Object
+Ans: a. One trigger per Object
 	    b. Avoid SOQL Query inside for loop.
   	  c. Avoid DML inside for loop.
   	  d. Avoid Hardcoding Ids.
@@ -8,7 +8,7 @@ Ans : a. One trigger per Object
   	  g. Avoid nested for loop.
 	 	 
 2. How many records can be inserted in DML?
-Ans : A list or map can not process more than 10000 DML rows in a single transaction.
+Ans: A list or map can not process more than 10000 DML rows in a single transaction.
 ==> We can't use more than 150 DML Statements in a single transaction.
 
 3. How many records can be processed in trigger in salesforce.
@@ -22,7 +22,7 @@ Ans :
 	b. Use Static set
 	c. Use Static Map
 
-5. What are governor Limits? Gice three Example.
+5. What are governor Limits? Give three examples.
 Ans:
 	Salesforce governor limits, they are set of rules and regulation that
 	restrict monopolistic use of the resource for org that utilize salesforce servers.
