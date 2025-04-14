@@ -1,0 +1,3 @@
+public void execute(Database.BatchableContext bc, List<Case> caseRecords){
+    Set<Id> casesIds = new Map<Id,Case>(caseRecords).keySet();
+}
