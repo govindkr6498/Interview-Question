@@ -1,0 +1,17 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 05-01-2025
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <lightning-card title="Child Component">
+        <lightning-formatted-text value={display} class="slds-m-around_medium">
+        </lightning-formatted-text><br><br>
+        <lightning-formatted-text value={displayGreeting} class="slds-m-around_medium">
+        </lightning-formatted-text><br>
+        <lightning-formatted-text value={user.firstName} class="slds-m-around_medium">
+        </lightning-formatted-text>
+    </lightning-card>
+</template>
