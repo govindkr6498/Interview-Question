@@ -1,0 +1,13 @@
+<!--
+  @description       : 
+  @author            : Govind Kumar
+  @group             : 
+  @last modified on  : 05-01-2025
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <c-child-component display = {greeting}  
+    user = {userDetails}
+    display-greeting = {happyMessage}
+    ></c-child-component>
+</template>
