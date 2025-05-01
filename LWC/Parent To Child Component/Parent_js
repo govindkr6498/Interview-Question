@@ -1,0 +1,15 @@
+import { LightningElement } from 'lwc';
+
+export default class ParentComponent extends LightningElement {
+    greeting = 'Hi!... Govind Kumar. Welcome to the Iquestbee technology.';
+    happyMessage = 'I am so happy today. I have been working on this project for the last 6 months and I feel this is one of the best technologies out there.';
+    userDetails= {
+        firstName: 'Govind',
+        lastName: 'Kumar',
+        email: 'govindkumar@gmail.com',
+        phone: '+91-9382777777',
+        company: 'Iquestbee',
+        country: 'India',
+        city: 'Mumbai',
+        zipCode: '400001'}
+}
