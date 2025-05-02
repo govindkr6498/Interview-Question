@@ -1,3 +1,45 @@
+1. Salesforce Flow.
+==> Salesforce flow is an automation tool that allow 
+	users to easily create and optimize bussiness porcesses 
+	without any coding skills.
+	
+	Type of flow.
+	==> Screen Flow.
+	==> Auto-launched Flow
+	==> Record trigger Flow
+	==> Schedule-Trigger Flow
+	==> Plateform Event-Trigger Flows
+	
+
+2. Can flow call Apex classes.
+==> Yes,Flow can call apex classes using the the "Apex" action 
+	element,allowing for the execution of complex logic that may not 
+	possible directly wthin the flow.
+	
+==> The invocableMethod annotation expose invocable actions inthe flow builder.
+==> The invocable methd must be static,public or global.
+==> Only one method in a class can have th3 invocableMethod annotation.
+
+public class AccountAction {
+	@invocableMethod(label ="Get Account Names"desciption= "Return the list of account" category ="Account")
+	public static List<Accout> getAccount(List<Id> accountIds){}
+}
+
+3. Can we call Flow from LWC?
+==>
+	<Template>
+		<Lightning-flow flow-api-name="Survey_Customers"></Lightning-flow>
+	<Template>
+	
+	
+4. Can we use LWC inside a Salesforce Flow?
+==>
+	<targets>
+		<target>Lightning_FlowScreen</target>
+	<targets>
+	
+	
+
 1. Can we write a single flow for insert,update and delete case?
 ==> Yes, a Single Flow Can Handle All Three (Insert, Update, and Delete) Operations Directly.
 
