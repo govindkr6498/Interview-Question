@@ -1,0 +1,46 @@
+1.Apex trigger
+==> Apex trigger enable you to perform custom actions before or 
+	after change to salesforce records, such as insertions,updates, 
+	or deletions.
+	
+==> A trigger is apex code that executes before and afer the following types 
+	of operations.
+	1. insert
+	2. update
+	3. delete
+	4. undelete
+	
+==> Before triggers
+	==> Used to update or validate record values before they are saved to
+		the database.
+	==> Update the same record
+	==> validation of the record
+
+==> After triggers
+	==> Used to access field values that are set by the system ( such as a record's Id or 
+		lastModifiedDate field), and to affect changes in other related records.
+		
+		
+	==> access createdId, 
+	==> callouts
+	==> related records.
+	
+	==> Triggering Event
+		1. Before insert
+		2. before update
+		3. before delete
+		4. after insert
+		5. after update
+		6. after undelete
+	syntax:
+	-------
+		trigger triggerName on objectName (trigger_events){}
+		
+==> Create One trigger per Object.
+	==>Benefit of create one trigger per object is 
+		easy maintainability and 
+		control the order of execution.
+		
+
+
+		
