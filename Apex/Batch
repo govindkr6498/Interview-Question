@@ -336,6 +336,31 @@ EX: // Example of Method Overriding
 
 12. 
 
+
+1.Can we call Future method through Batch Class.
+==> Yes, We can call a @future method from a Batch class, but only from the execute method, not from start or finish.
+==> However, be cautious of governor limits like the limit of 50 future calls per transaction.
+
+2. Can we call Batch class from Future method.
+==> Yes, We can call.
+
+3. Can we call future method through Queueable?
+==> Yes, you can call a @future method from a Queueable class
+
+4. Can we call a Queueable class through a Batch class?
+==> yes
+
+5. Can we call a Batch class through a Queueable class?
+==> yes.
+
+6. Can we call queuable through future method?
+==> No.
+
+7. Can we call future method inside future method?.
+==> No.
+
+
+
 		
 		 
 			
